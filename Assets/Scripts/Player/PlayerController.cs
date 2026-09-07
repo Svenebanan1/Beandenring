@@ -19,18 +19,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector2 movementVector)
     {
-        Vector3 forward = _cameraTransform.forward;
-        Vector3 right = _cameraTransform.right;
-
-        // Ignore camera's vertical angle
-        forward.y = 0f;
-        right.y = 0f;
-
-        forward.Normalize();
-        right.Normalize();
-
-        Vector3 move = forward * movementVector.y +
-                       right * movementVector.x;
+        Vector3 move = transform.forward * movementVector.y + transform.right * movementVector.x;
 
         move *= _moveSpeed * Time.deltaTime;
 
@@ -38,9 +27,7 @@ public class PlayerController : MonoBehaviour
 
         _verticalVelocity += _gravity * Time.deltaTime;
 
-        _characterController.Move(
-            new Vector3(0, _verticalVelocity, 0) * Time.deltaTime
-        );
+        _characterController.Move(new Vector3(0, _verticalVelocity * Time.deltaTime, 0));
     }
 
     public void Rotate(Vector2 lookVector)

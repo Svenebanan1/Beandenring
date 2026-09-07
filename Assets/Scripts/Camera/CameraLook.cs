@@ -17,6 +17,6 @@ public class CameraController : MonoBehaviour
             _maxRotationX
         );
 
-        transform.localRotation = Quaternion.Euler(_rotationX, 0f, 0f);
+        transform.localEulerAngles = new Vector3(_rotationX,0,0 );
     }
 }

@@ -4,6 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController _characterController;
 
+    [SerializeField] private Transform _cameraTransform;
+
     [SerializeField] private float _moveSpeed, _runSpeed = 13f, _normalSpeed = 7f, _rotationSpeed = 5f, _jumpForce = 5f, _gravity = -11.5f  ;
 
     private float _rotationY;
@@ -17,8 +19,18 @@ public class PlayerController : MonoBehaviour
 
     public void Move(Vector2 movementVector)
     {
-        Vector3 move = transform.forward * movementVector.y +
-                       transform.right * movementVector.x;
+        Vector3 forward = _cameraTransform.forward;
+        Vector3 right = _cameraTransform.right;
+
+        // Ignore camera's vertical angle
+        forward.y = 0f;
+        right.y = 0f;
+
+        forward.Normalize();
+        right.Normalize();
+
+        Vector3 move = forward * movementVector.y +
+                       right * movementVector.x;
 
         move *= _moveSpeed * Time.deltaTime;
 
@@ -33,10 +45,9 @@ public class PlayerController : MonoBehaviour
 
     public void Rotate(Vector2 lookVector)
     {
-        // ONLY rotate the player left/right
-        _rotationY += lookVector.x * _rotationSpeed * Time.deltaTime;
+        float rotation = lookVector.x * _rotationSpeed * Time.deltaTime;
 
-        transform.localEulerAngles = new Vector3(0, _rotationY, 0);
+        transform.Rotate(0f, rotation, 0f);
     }
 
     public void Jump()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class BlueRock : MonoBehaviour
 {
     [SerializeField] private GameObject icePrefab;
-    [SerializeField] private float _spawnInterval = 1.5f;
+    [SerializeField] private float _spawnInterval = 1f;
 
     public RangeCheck rangeCheck;
 

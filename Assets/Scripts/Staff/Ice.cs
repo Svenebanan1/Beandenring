@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Ice : MonoBehaviour
 {
-    [SerializeField] private float _speed = 35f;
+    [SerializeField] private float _speed, _damage, _slowingEffect = 0.5f;
 
     private Rigidbody _rb;
     private Transform _target;

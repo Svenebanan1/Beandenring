@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class SwitchRocks : MonoBehaviour
 {
-
     public GameObject redRock;
     public GameObject blueRock;
 

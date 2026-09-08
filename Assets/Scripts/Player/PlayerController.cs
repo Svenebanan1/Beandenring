@@ -1,10 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     private CharacterController _characterController;
-
-    [SerializeField] private Transform _cameraTransform;
 
     [SerializeField] private float _moveSpeed, _runSpeed = 13f, _normalSpeed = 7f, _rotationSpeed = 5f, _jumpForce = 5f, _gravity = -11.5f  ;
 

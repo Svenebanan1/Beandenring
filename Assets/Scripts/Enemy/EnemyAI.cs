@@ -16,6 +16,8 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent agent;
     public LayerMask whatIsGround, whatIsPlayer;
 
+    [SerializeField] private float _speed;
+
     private void Awake()
     {
        player = GameObject.Find("Character").transform;
@@ -30,13 +32,13 @@ public class EnemyAI : MonoBehaviour
         enemySword = GetComponentInChildren<BoxCollider>();
 
         enemySword.enabled = false;
+
+        _speed = agent.speed;
     }
 
     void Update()
     {
-        Debug.Log(player.position);
         agent.SetDestination(player.position);
-        agent.updateRotation = true;
     }
 
     IEnumerator Attack()
@@ -47,11 +49,19 @@ public class EnemyAI : MonoBehaviour
         yield return null;
     }
 
+    IEnumerator Slowed()
+    {
+        agent.speed = agent.speed * 0.5f;
+
+        yield return new WaitForSeconds(0.5f);
+
+        agent.speed = _speed;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            agent.speed = agent.speed * 0.5f;
             StartCoroutine(Attack());
         }
     }
@@ -60,7 +70,6 @@ public class EnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            agent.speed = agent.speed * 2f;
             StopCoroutine(Attack());
         }
     }
@@ -68,6 +77,12 @@ public class EnemyAI : MonoBehaviour
     public void EnableHitbox()
     {
         enemySword.enabled = true;
+    }
+
+    public void SlowEffect()
+    {
+        Debug.Log("slowed");
+        StartCoroutine(Slowed());
     }
 
 }

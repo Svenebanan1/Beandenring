@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class RangeCheck : MonoBehaviour
 {
+    [SerializeField] WeaponManager _weaponManager;
+
     // List to keep track of enemies in range
     private List<Transform> _enemiesInRange = new List<Transform>();
 
     // Property to check if there are any enemies in range
     public bool isInRange => _enemiesInRange.Count > 0;
+
+    [SerializeField] private CapsuleCollider _capsuleCollider;
 
     // Returns the nearest enemy in range, or null if there are no enemies in range
     public Transform GetNearestEnemy()
@@ -34,16 +38,9 @@ public class RangeCheck : MonoBehaviour
 
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _capsuleCollider.radius = _weaponManager.range;
     }
 
     private void OnTriggerEnter(Collider other)

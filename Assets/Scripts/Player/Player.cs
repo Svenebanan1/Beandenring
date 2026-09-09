@@ -16,10 +16,11 @@ public class Player : MonoBehaviour
     private Vector2 moveInput; // Stores the player's movement input
     private Vector2 lookInput; // Stores the player's look input
 
+    private float currentSpeed;
     private float walkSpeed = 8f; // Walking speed of the player
     private float runSpeed = 12.5f; // Run speed of player
     private float playerRotationDampening = 0.2f; // Damping factor for player rotation
-    private float turnSmoothVelocity; // Velocity used for smoothing the player's rotation
+    private float turnSmoothVelocity = 10f; // Velocity used for smoothing the player's rotation
 
     private float verticalVelocity; // Vertical velocity of the player
     private float gravity = -9.81f; // Gravity applied to the player
@@ -35,6 +36,11 @@ public class Player : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void Start()
+    {
+        currentSpeed = walkSpeed;
     }
 
     // Update is called once per frame
@@ -74,7 +80,7 @@ public class Player : MonoBehaviour
 
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
 
-            characterController.Move(moveDirection.normalized * walkSpeed * Time.deltaTime + verticalMove);
+            characterController.Move(moveDirection.normalized * currentSpeed * Time.deltaTime + verticalMove);
         }
         else
         {
@@ -87,7 +93,7 @@ public class Player : MonoBehaviour
     {
         if (characterController.isGrounded)
         {
-            verticalVelocity = -1;
+            verticalVelocity = -3;
 
             if (jumpAction.WasPressedThisFrame())
             {
@@ -104,11 +110,11 @@ public class Player : MonoBehaviour
     {
         if(runAction.IsPressed())
         {
-            walkSpeed = runSpeed;
+            currentSpeed = runSpeed;
         }
         else
         {
-            walkSpeed = 8f;
+            currentSpeed = walkSpeed;
         }
     }
 

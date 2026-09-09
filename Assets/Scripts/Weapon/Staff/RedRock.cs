@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class BlueRock : MonoBehaviour
+public class RedRock : MonoBehaviour
 {
-    [SerializeField] private GameObject icePrefab;
-    [SerializeField] private float _spawnInterval = 1f;
+    [SerializeField] WeaponManager _weaponManager;
+
+    [SerializeField] private GameObject fireBallPrefab;
 
     public RangeCheck rangeCheck;
 
@@ -11,7 +12,7 @@ public class BlueRock : MonoBehaviour
 
     private void Start()
     {
-        _spawnTimer = _spawnInterval;
+        _spawnTimer = _weaponManager.fireRate;
     }
 
     private void Update()
@@ -27,7 +28,7 @@ public class BlueRock : MonoBehaviour
                 ShootEnemy(enemy);
             }
 
-            _spawnTimer = _spawnInterval;
+            _spawnTimer = _weaponManager.fireRate;
         }
     }
 
@@ -39,14 +40,15 @@ public class BlueRock : MonoBehaviour
 
         Quaternion rotation = Quaternion.LookRotation(direction);
 
-        GameObject iceObject = Instantiate(icePrefab, spawnPosition, rotation);
+        GameObject fireBallObject = Instantiate(fireBallPrefab, spawnPosition, rotation);
 
-        Ice ice = iceObject.GetComponent<Ice>();
+        FireBall fireBall = fireBallObject.GetComponent<FireBall>();
 
-        if (ice != null)
+        if (fireBall != null)
         {
-            ice.SetTarget(enemy);
+            fireBall.SetTarget(enemy);
         }
     }
+
 }
 

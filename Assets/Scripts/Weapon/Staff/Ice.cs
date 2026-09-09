@@ -1,13 +1,14 @@
 using UnityEngine;
 
-public class FireBall : MonoBehaviour
+public class Ice : MonoBehaviour
 {
-    [SerializeField] private float _speed, _fireBallDamage = 20f;
+    [SerializeField] WeaponManager _weaponManager;
 
     private Rigidbody _rb;
     private Transform _target;
 
     public EnemyHP enemy;
+    public EnemyAI enemyAI;
 
     private void Awake()
     {
@@ -27,10 +28,16 @@ public class FireBall : MonoBehaviour
             return;
         }
 
+        _weaponManager.projectileLifetime -= Time.deltaTime;
+        if (_weaponManager.projectileLifetime <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         Vector3 direction =
             (_target.position - transform.position).normalized;
 
-        _rb.linearVelocity = direction * _speed;
+        _rb.linearVelocity = direction * _weaponManager.projectileSpeed;
 
         transform.rotation =
             Quaternion.LookRotation(direction);
@@ -41,9 +48,13 @@ public class FireBall : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
-            enemy.TakeDamage(_fireBallDamage);
+            enemyAI = other.gameObject.GetComponent<EnemyAI>();
+
+            enemyAI.SlowEffect();
+
+            enemy.TakeDamage(_weaponManager.damage);
+
             Destroy(gameObject);
         }
     }
 }
-

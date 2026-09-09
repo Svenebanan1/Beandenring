@@ -84,6 +84,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ice
   _speed: 50
+  _damage: 7
+  _slowingEffect: 0.5
 --- !u!54 &765699406775391814
 Rigidbody:
   m_ObjectHideFlags: 0

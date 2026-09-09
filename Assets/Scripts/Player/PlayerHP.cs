@@ -17,16 +17,9 @@ public class PlayerHP : MonoBehaviour
         
     }
 
-    public void TakeDamage()
+    public void TakeDamage(float dmg)
     {
-
+        playerHP -= dmg;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("EnemySword"))
-        {
-            TakeDamage();
-        }
-    }
 }

@@ -7,7 +7,7 @@ public class InputHandler : MonoBehaviour
 
     private InputAction _switchRockAction;
 
-    void Start()
+    void Update()
     {
         _switchRockAction = InputSystem.actions.FindAction("SwitchRock");
 

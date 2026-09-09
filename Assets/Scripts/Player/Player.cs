@@ -16,8 +16,8 @@ public class Player : MonoBehaviour
     private Vector2 moveInput; // Stores the player's movement input
     private Vector2 lookInput; // Stores the player's look input
 
-    private float walkSpeed = 9f; // Walking speed of the player
-    private float runSpeed = 15f; // Run speed of player
+    private float walkSpeed = 8f; // Walking speed of the player
+    private float runSpeed = 12.5f; // Run speed of player
     private float playerRotationDampening = 0.2f; // Damping factor for player rotation
     private float turnSmoothVelocity; // Velocity used for smoothing the player's rotation
 
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            walkSpeed = 9f;
+            walkSpeed = 8f;
         }
     }
 

@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     public NavMeshAgent agent;
     public LayerMask whatIsGround, whatIsPlayer;
 
-    [SerializeField] private float _speed;
+    [SerializeField] private EnemyVariables _enemyVariables;
 
     private void Awake()
     {
@@ -33,7 +33,7 @@ public class EnemyAI : MonoBehaviour
 
         enemySword.enabled = false;
 
-        _speed = agent.speed;
+        _enemyVariables.speed = agent.speed;
     }
 
     void Update()
@@ -55,7 +55,7 @@ public class EnemyAI : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        agent.speed = _speed;
+        agent.speed = _enemyVariables.speed;
     }
 
     private void OnTriggerStay(Collider other)

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class EnemySword : MonoBehaviour
 {
-    [SerializeField] private BoxCollider boxCollider;
+    [SerializeField] private EnemyVariables _enemyVariables;
 
-    [SerializeField] private float _dmg = 5f;
+    [SerializeField] private BoxCollider boxCollider;
 
     public PlayerHP playerHP;
 
@@ -26,7 +26,7 @@ public class EnemySword : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerHP.TakeDamage(_dmg);
+            playerHP.TakeDamage(_enemyVariables.dmg);
             boxCollider.enabled = false;
         }
     }

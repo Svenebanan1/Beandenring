@@ -3,15 +3,18 @@ using UnityEngine;
 public class Ice : MonoBehaviour
 {
     [SerializeField] WeaponManager _weaponManager;
-
+ 
     private Rigidbody _rb;
     private Transform _target;
 
     public EnemyHP enemy;
     public EnemyAI enemyAI;
 
+    [SerializeField] private float _dmg;
+
     private void Start()
     {
+        _dmg = _weaponManager.damage;
         _rb = GetComponent<Rigidbody>();
         Destroy(gameObject, _weaponManager.projectileLifetime); 
     }
@@ -39,7 +42,7 @@ public class Ice : MonoBehaviour
             Quaternion.LookRotation(direction);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -48,7 +51,7 @@ public class Ice : MonoBehaviour
 
             enemyAI.SlowEffect();
 
-            enemy.TakeDamage(_weaponManager.damage);
+            enemy.TakeDamage(_dmg);
 
             Destroy(gameObject);
         }

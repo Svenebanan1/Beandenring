@@ -9,8 +9,16 @@ public class FireBall : MonoBehaviour
 
     public EnemyHP enemy;
 
+    [SerializeField] private SphereCollider _aoeCollider;
+
+    [SerializeField] private float _dmg;
+    [SerializeField] private float _aoeDamage;
+
     private void Start()
     {
+        _aoeDamage = _weaponManager.damage * 0.75f;
+        _dmg = _weaponManager.damage;
+        _aoeCollider.enabled = false;
         _rb = GetComponent<Rigidbody>();
         Destroy(gameObject, _weaponManager.projectileLifetime);
     }
@@ -37,13 +45,23 @@ public class FireBall : MonoBehaviour
             Quaternion.LookRotation(direction);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
+            _aoeCollider.enabled = true;
             enemy = other.gameObject.GetComponent<EnemyHP>();
-            enemy.TakeDamage(_weaponManager.damage);
+            enemy.TakeDamage(_dmg);
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.isTrigger && other.gameObject.CompareTag("Enemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            enemy.TakeDamage(_aoeDamage);
         }
     }
 }

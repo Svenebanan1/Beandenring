@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - EnemySword
+  - XpMpve
+  - XpMove
   layers:
   - Default
   - TransparentFX

@@ -1,26 +1,70 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using NUnit.Framework.Internal;
 
 public class PlayerLvL : MonoBehaviour
 {
     [SerializeField] private PlayerValues _playerValues;
+    [SerializeField] private float _maxXP;
+    [SerializeField] private float _currentXP;
+    [SerializeField] private int _currentLevel;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Image _xpBar;
+
+    [SerializeField] private float _fillSpeed = 2f;
+
+    [SerializeField] private TextMeshProUGUI _textMeshProUGUI;
+
+    private float _targetFill;
+
+    private void Start()
     {
-        
+        _maxXP = _playerValues.xpTillNextLvL;
+        _currentXP = _playerValues.xp;
+        _currentLevel = _playerValues.lvl;
+
+        _currentLevel = 1;
+        _currentXP = 0f;
+
+        UpdateTargetFill();
+        _xpBar.fillAmount = _targetFill;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        while(_playerValues.xp >= _playerValues.xpTillNextLvL)
-        {
-            LevelUp();
-        }
+        _textMeshProUGUI.text = $"LVL : {_currentLevel}";
+
+        _xpBar.fillAmount = Mathf.MoveTowards(
+            _xpBar.fillAmount,
+            _targetFill,
+            _fillSpeed * Time.deltaTime
+        );
     }
 
     private void LevelUp()
     {
-        _playerValues.xpTillNextLvL *= 1.1f;
+        _currentLevel++;
+        _maxXP *= 1.1f;
+
+        // Do not reset XP here.
+    }
+
+    public void GainedXP()
+    {
+        _currentXP += 15f;
+
+        while (_currentXP >= _maxXP)
+        {
+            _currentXP -= _maxXP;
+            LevelUp();
+        }
+
+        UpdateTargetFill();
+    }
+
+    private void UpdateTargetFill()
+    {
+        _targetFill = _currentXP / _maxXP;
     }
 }

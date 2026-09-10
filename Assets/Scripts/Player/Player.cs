@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
 
     private float verticalVelocity; // Vertical velocity of the player
     private float gravity = -9.81f; // Gravity applied to the player
-    private float jumpHeight = 4f; // Height of the player's jump
+    private float jumpHeight = 5.5f; // Height of the player's jump
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()

@@ -8,16 +8,18 @@ public class EnemyHP : MonoBehaviour
 
     [SerializeField] private GameObject _xpShard;
 
+    float hp;
+
     private void Start()
     {
-        _enemyVariables.hp = _enemyVariables.maxHp;
+        hp = _enemyVariables.maxHp;
     }
 
     public void TakeDamage(float dmg)
     {
-        _enemyVariables.hp -= dmg;
+        hp -= dmg;
 
-        if (_enemyVariables.hp <= 0)
+        if (hp <= 0)
         {
             Instantiate(_xpShard, transform.position, Quaternion.identity);
             Destroy(gameObject);

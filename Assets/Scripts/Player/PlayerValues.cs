@@ -7,6 +7,8 @@ public class PlayerValues : ScriptableObject
 
     public float xpTillNextLvL;
 
+    public int lvl;
+
     public float hp;
 
     public float maxhp;

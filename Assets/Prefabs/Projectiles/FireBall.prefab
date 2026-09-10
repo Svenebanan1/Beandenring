@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -26.266825
+      value: 0.5965558
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.93
+      value: 1.96
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -38.450527
+      value: 22.63
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
       insertIndex: -1
       addedObject: {fileID: -8000500986478795899}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6326293405466853449}
   m_SourcePrefab: {fileID: 100100000, guid: 2eaba09b4ddbe1f40b3f36f16814fb9a, type: 3}
 --- !u!1 &4213301722095876505 stripped
 GameObject:
@@ -143,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FireBall
   _weaponManager: {fileID: 11400000, guid: 21cfb5812c271ed4ca293d3ad19153c2, type: 2}
   enemy: {fileID: 0}
+  _aoeCollider: {fileID: 6326293405466853449}
 --- !u!198 &-4068012281093142272
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -2408,3 +2412,24 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!135 &6326293405466853449
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4213301722095876505}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.04
+  m_Center: {x: 0.00005778973, y: 0, z: 0.00010219633}

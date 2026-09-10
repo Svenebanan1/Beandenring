@@ -9,9 +9,10 @@ public class FireBall : MonoBehaviour
 
     public EnemyHP enemy;
 
-    private void Awake()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        Destroy(gameObject, _weaponManager.projectileLifetime);
     }
 
     public void SetTarget(Transform target)
@@ -25,12 +26,6 @@ public class FireBall : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        }
-
-        _weaponManager.projectileLifetime -= Time.deltaTime;
-        if(_weaponManager.projectileLifetime <= 0)
-        {
-            Destroy(gameObject);
         }
 
         Vector3 direction =

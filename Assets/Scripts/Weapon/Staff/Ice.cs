@@ -10,10 +10,12 @@ public class Ice : MonoBehaviour
     public EnemyHP enemy;
     public EnemyAI enemyAI;
 
-    private void Awake()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        Destroy(gameObject, _weaponManager.projectileLifetime); 
     }
+
 
     public void SetTarget(Transform target)
     {
@@ -26,13 +28,7 @@ public class Ice : MonoBehaviour
         {
             Destroy(gameObject);
             return;
-        }
-
-        _weaponManager.projectileLifetime -= Time.deltaTime;
-        if (_weaponManager.projectileLifetime <= 0)
-        {
-            Destroy(gameObject);
-        }
+        }    
 
         Vector3 direction =
             (_target.position - transform.position).normalized;

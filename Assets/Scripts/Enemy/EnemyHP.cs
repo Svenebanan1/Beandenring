@@ -14,5 +14,10 @@ public class EnemyHP : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         _enemyHP -= dmg;
+
+        if (_enemyHP <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -5,6 +5,8 @@ public class SwitchRocks : MonoBehaviour
 {
     public GameObject redRock;
     public GameObject blueRock;
+    public GameObject iceImage;
+    public GameObject fireImage;
 
     private InputAction _switchRockAction;
 
@@ -29,12 +31,16 @@ public class SwitchRocks : MonoBehaviour
             if (redRock.activeSelf)
             {
                 redRock.SetActive(false);
+                fireImage.SetActive(false);
                 blueRock.SetActive(true);
+                iceImage.SetActive(true);
             }
             else
             {
                 redRock.SetActive(true);
+                fireImage.SetActive(true);
                 blueRock.SetActive(false);
+                iceImage.SetActive(false);
             }
         }
     }

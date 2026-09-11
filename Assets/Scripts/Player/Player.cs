@@ -8,19 +8,12 @@ public class Player : MonoBehaviour
 
     public Transform mainCamera;
 
-    private InputAction moveAction; // Reference to the Move action
-    private InputAction jumpAction; // Reference to the Jump action
-    private InputAction lookAction; // Reference to the Look action
-    private InputAction runAction;
+    private InputAction moveAction, jumpAction, lookAction, runAction; // Reference to the Move action
 
-    private Vector2 moveInput; // Stores the player's movement input
-    private Vector2 lookInput; // Stores the player's look input
+    private Vector2 moveInput, lookInput; // Stores the player's movement input
+    private Vector3 horizontalVelocity;
 
-    private float currentSpeed;
-    private float walkSpeed = 8f; // Walking speed of the player
-    private float runSpeed = 12.5f; // Run speed of player
-    private float playerRotationDampening = 0.2f; // Damping factor for player rotation
-    private float turnSmoothVelocity = 10f; // Velocity used for smoothing the player's rotation
+    [SerializeField] private float currentSpeed, walkSpeed = 8f, runSpeed = 12.5f, playerRotationDampening = 0.2f, turnSmoothVelocity = 10f, airAcceleration = 60f; 
 
     private float verticalVelocity; // Vertical velocity of the player
     private float gravity = -9.81f; // Gravity applied to the player
@@ -68,25 +61,70 @@ public class Player : MonoBehaviour
 
     private void OnMove()
     {
-        Vector3 playerDirection = new Vector3(moveInput.x, 0f, moveInput.y).normalized;
-        Vector3 verticalMove = new Vector3(0f, verticalVelocity, 0f) * Time.deltaTime;
+        Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
-        if(playerDirection.magnitude > 0f )
+        if (inputDirection.sqrMagnitude > 1f)
         {
-            float targetAngle = Mathf.Atan2(playerDirection.x, playerDirection.z) * Mathf.Rad2Deg + mainCamera.eulerAngles.y;
-            float smoothTargetAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, playerRotationDampening);
-
-            transform.rotation = Quaternion.Euler(0f, smoothTargetAngle, 0f);
-
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-            characterController.Move(moveDirection.normalized * currentSpeed * Time.deltaTime + verticalMove);
+            inputDirection.Normalize();
         }
-        else
+
+        Vector3 cameraForward = mainCamera.forward;
+        Vector3 cameraRight = mainCamera.right;
+
+        cameraForward.y = 0f;
+        cameraRight.y = 0f;
+
+        cameraForward.Normalize();
+        cameraRight.Normalize();
+
+        Vector3 desiredDirection =
+            cameraForward * inputDirection.z +
+            cameraRight * inputDirection.x;
+
+        if (desiredDirection.sqrMagnitude > 1f)
         {
-            characterController.Move(verticalMove);
+            desiredDirection.Normalize();
         }
-            
+
+        Vector3 desiredVelocity = desiredDirection * currentSpeed;
+
+        if (characterController.isGrounded)
+        {
+            // Ground movement responds immediately.
+            horizontalVelocity = desiredVelocity;
+        }
+        else if (desiredDirection.sqrMagnitude > 0f)
+        {
+            // Air movement gradually moves toward the requested direction.
+            horizontalVelocity = Vector3.MoveTowards(
+                horizontalVelocity,
+                desiredVelocity,
+                airAcceleration * Time.deltaTime
+            );
+        }
+
+        if (horizontalVelocity.sqrMagnitude > 0.01f)
+        {
+            float targetAngle = Mathf.Atan2(
+                horizontalVelocity.x,
+                horizontalVelocity.z
+            ) * Mathf.Rad2Deg;
+
+            float smoothAngle = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
+                targetAngle,
+                ref turnSmoothVelocity,
+                playerRotationDampening
+            );
+
+            transform.rotation = Quaternion.Euler(0f, smoothAngle, 0f);
+        }
+
+        Vector3 completeVelocity =
+            horizontalVelocity +
+            Vector3.up * verticalVelocity;
+
+        characterController.Move(completeVelocity * Time.deltaTime);
     }
 
     private void OnJump()

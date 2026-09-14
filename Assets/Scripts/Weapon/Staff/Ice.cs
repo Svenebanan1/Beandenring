@@ -11,12 +11,16 @@ public class Ice : MonoBehaviour
     public EnemyAI enemyAI;
 
     [SerializeField] private float _dmg;
+    [SerializeField] private float _lifeTime;
+    [SerializeField] private float _projectileSpeed;
 
     private void Start()
     {
+        _projectileSpeed = _weaponManager.projectileSpeed;
+        _lifeTime = _weaponManager.projectileLifetime;
         _dmg = _weaponManager.damage;
         _rb = GetComponent<Rigidbody>();
-        Destroy(gameObject, _weaponManager.projectileLifetime); 
+        Destroy(gameObject, _lifeTime); 
     }
 
 
@@ -36,13 +40,13 @@ public class Ice : MonoBehaviour
         Vector3 direction =
             (_target.position - transform.position).normalized;
 
-        _rb.linearVelocity = direction * _weaponManager.projectileSpeed;
+        _rb.linearVelocity = direction * _projectileSpeed;
 
         transform.rotation =
             Quaternion.LookRotation(direction);
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {

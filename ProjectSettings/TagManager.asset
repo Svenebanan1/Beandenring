@@ -18,9 +18,9 @@ TagManager:
   - Enemy
   - Player
   - Ground
-  - Projectile
-  - 
-  - 
+  - Ice
+  - FireBall
+  - Sword
   - 
   - 
   - 

@@ -8,7 +8,6 @@ public class Sword : MonoBehaviour
     private Transform _target;
 
     public EnemyHP enemy;
-    public EnemyAI enemyAI;
 
     [SerializeField] private float _dmg;
     [SerializeField] private float _lifeTime;

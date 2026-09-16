@@ -318,7 +318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3629,7 +3629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3843,7 +3843,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6254,6 +6254,54 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1 &1351787115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1351787116}
+  - component: {fileID: 1351787117}
+  m_Layer: 0
+  m_Name: SlashPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1351787116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351787115}
+  serializedVersion: 2
+  m_LocalRotation: {x: -4.6566123e-10, y: -0.0000000074505797, z: 0.036221515, w: 0.9993438}
+  m_LocalPosition: {x: -3.53, y: -0.97, z: -1.48}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2108648844}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 4.152}
+--- !u!114 &1351787117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351787115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85df1028f3a8af74fae6b0079c2df18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootSlash
+  _weaponManager: {fileID: 11400000, guid: 78397c8d0118bf843ad5d6ed3f7f7fee, type: 2}
+  _slashPrefab: {fileID: 7345296939603868583, guid: 87d72c5336483934da3596440e4000f6, type: 3}
+  _rangeCheck: {fileID: 1421655806}
+  _spawnOffset: 1
 --- !u!1001 &1362927557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6316,7 +6364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6499,7 +6547,7 @@ Transform:
   m_GameObject: {fileID: 1388258714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 3.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6677,7 +6725,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6746,7 +6794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7550,7 +7598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8199,15 +8247,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.9600627
+      value: 0.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.32644105
+      value: -0.31
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.58732605
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8294,6 +8342,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1388258715}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1351787116}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f4066e17e67b8e49acd8d737b9800d7, type: 3}
 --- !u!4 &2108648844 stripped
@@ -8438,7 +8489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5271858065813343016, guid: 0b1ad6843c22f7c45b592bf420c05062, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
-      value: 2048
+      value: 6144
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

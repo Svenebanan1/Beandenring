@@ -20,19 +20,22 @@ public class PlayerLvL : MonoBehaviour
     private float _targetFill;
 
     public GameObject levelPanel;
+    public GameObject unlockPanel;
 
-    public Upgradig upgrading;
+    public UpgradingScript upgrading;
+
     private void Start()
     {
         _maxXP = _playerValues.xpTillNextLvL;
         _currentXP = _playerValues.xp;
         _currentLevel = _playerValues.lvl;
 
-        _currentLevel = 1;
+        _currentLevel = 0;
         _currentXP = 0f;
 
         UpdateTargetFill();
         _xpBar.fillAmount = _targetFill;
+
     }
 
     private void Update()
@@ -44,6 +47,11 @@ public class PlayerLvL : MonoBehaviour
             _targetFill,
             _fillSpeed * Time.deltaTime
         );
+        if(upgrading.swordUnlocked && upgrading.slashUnlocked)
+        {
+            Destroy(unlockPanel);
+        } 
+        
     }
 
     private void LevelUp()
@@ -51,7 +59,6 @@ public class PlayerLvL : MonoBehaviour
         _currentLevel++;
         _maxXP += 5;
         _maxXP *= 1.02f;
-       
     }
 
     public void GainedXP()
@@ -60,14 +67,23 @@ public class PlayerLvL : MonoBehaviour
 
         while (_currentXP >= _maxXP)
         {
-            upgrading.Upgrading();
-            while (upgrading.upgradingIF == true)
-            {
-                Time.timeScale = 0f;
-                levelPanel.SetActive(true);
-            }
             _currentXP -= _maxXP;
             LevelUp();
+            StartCoroutine(upgrading.Upgrading());
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            if (_currentLevel == 5 || _currentLevel == 10)
+            {
+                unlockPanel.SetActive(true);
+                Time.timeScale = 0f;
+               break;
+            }
+            if (upgrading.upgradingIF == true)
+            {
+                levelPanel.SetActive(true);
+                Time.timeScale = 0f;
+            }
+           
         }
 
         UpdateTargetFill();

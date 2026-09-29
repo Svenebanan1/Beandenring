@@ -13,9 +13,9 @@ public class Slash : MonoBehaviour
 
     private Vector3 _direction;
 
-    [SerializeField] private float _dmg;
+    public float _dmg;
     [SerializeField] private float _lifeTime;
-    [SerializeField] private float _projectileSpeed;
+    public float _projectileSpeed;
 
     private void Start()
     {

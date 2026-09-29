@@ -51,13 +51,6 @@ public class PlayerLvL : MonoBehaviour
         _currentLevel++;
         _maxXP += 5;
         _maxXP *= 1.02f;
-
-        upgrading.Upgrading();
-        while(upgrading.upgradingIF == true)
-        {
-            Time.timeScale = 0f;
-            levelPanel.SetActive(true);
-        }
        
     }
 
@@ -67,6 +60,12 @@ public class PlayerLvL : MonoBehaviour
 
         while (_currentXP >= _maxXP)
         {
+            upgrading.Upgrading();
+            while (upgrading.upgradingIF == true)
+            {
+                Time.timeScale = 0f;
+                levelPanel.SetActive(true);
+            }
             _currentXP -= _maxXP;
             LevelUp();
         }

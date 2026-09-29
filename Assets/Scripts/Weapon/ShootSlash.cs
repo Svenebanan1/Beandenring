@@ -7,7 +7,7 @@ public class ShootSlash : MonoBehaviour
     [SerializeField] private RangeCheck _rangeCheck;
     [SerializeField] private float _spawnOffset = 1f;
 
-    private float _spawnTimer;
+    public float _spawnTimer;
 
     private void Start()
     {

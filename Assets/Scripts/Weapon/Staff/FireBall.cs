@@ -9,11 +9,11 @@ public class FireBall : MonoBehaviour
 
     public EnemyHP enemy;
 
-    [SerializeField] private float _dmg;
+    public float _dmg;
 
     [SerializeField] private GameObject _targetGameObject;
     [SerializeField] private float _lifeTime;
-    [SerializeField] private float _projectileSpeed;
+    public float _projectileSpeed;
 
     private void Start()
     {

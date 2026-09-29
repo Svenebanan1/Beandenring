@@ -8,7 +8,7 @@ public class ShootSword : MonoBehaviour
 
     public RangeCheck rangeCheck;
 
-    private float _spawnTimer;
+    public float _spawnTimer;
 
     private void Start()
     {

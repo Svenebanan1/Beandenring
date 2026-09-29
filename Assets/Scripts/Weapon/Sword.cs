@@ -9,9 +9,9 @@ public class Sword : MonoBehaviour
 
     public EnemyHP enemy;
 
-    [SerializeField] private float _dmg;
+    public float _dmg;
     [SerializeField] private float _lifeTime;
-    [SerializeField] private float _projectileSpeed;
+    public float _projectileSpeed;
 
     private void Start()
     {

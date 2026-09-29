@@ -559,6 +559,8 @@ MonoBehaviour:
   _xpBar: {fileID: 928224862}
   _fillSpeed: 2
   _textMeshProUGUI: {fileID: 1679480133}
+  levelPanel: {fileID: 1905678145}
+  upgrading: {fileID: 471733617}
 --- !u!1 &184933014
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,7 +644,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 184933017}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 471733617}
+        m_TargetAssemblyTypeName: Upgradig, Assembly-CSharp
+        m_MethodName: AddFirerate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &184933017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1368,6 +1382,7 @@ GameObject:
   - component: {fileID: 471733615}
   - component: {fileID: 471733614}
   - component: {fileID: 471733613}
+  - component: {fileID: 471733617}
   m_Layer: 5
   m_Name: UI Items Active
   m_TagString: Untagged
@@ -1462,6 +1477,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &471733617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471733612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6707038830c7684e8773b31b7ceb8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  upgradingIF: 0
+  fireBall: {fileID: 3743158512991226867, guid: 6a7c96da2106da047b85620a326b112c, type: 3}
+  icePick: {fileID: 4288077866617317391, guid: 25ffa915ebd7e8341acf06e8ee8dc39b, type: 3}
+  slash: {fileID: 1983831025119448665, guid: 87d72c5336483934da3596440e4000f6, type: 3}
+  sword: {fileID: 5586200133365697351, guid: 56f4cb748e1248244ad00d1e300d6559, type: 3}
+  shootSlash: {fileID: 1351787117}
+  shootSword: {fileID: 1388258716}
+  redRock: {fileID: 933851358}
+  blueRock: {fileID: 1446461035}
 --- !u!1 &545411691
 GameObject:
   m_ObjectHideFlags: 0
@@ -4138,6 +4174,7 @@ MonoBehaviour:
   _weaponManager: {fileID: 11400000, guid: 2995704af666eaf4d853e459cc4acb31, type: 2}
   fireBallPrefab: {fileID: 4213301722095876505, guid: 6a7c96da2106da047b85620a326b112c, type: 3}
   rangeCheck: {fileID: 1421655806}
+  _spawnTimer: 0
 --- !u!1 &982961637
 GameObject:
   m_ObjectHideFlags: 0
@@ -6841,6 +6878,7 @@ MonoBehaviour:
   _slashPrefab: {fileID: 7345296939603868583, guid: 87d72c5336483934da3596440e4000f6, type: 3}
   _rangeCheck: {fileID: 1421655806}
   _spawnOffset: 1
+  _spawnTimer: 0
 --- !u!1001 &1362927557
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7179,7 +7217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: f0b36bc819999d24183dbbf19377779d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7244,6 +7282,7 @@ MonoBehaviour:
   _weaponManager: {fileID: 11400000, guid: 9c8b26ed0d6db3a4db2b5996b32a3567, type: 2}
   _swordPrefab: {fileID: 341278627329672080, guid: 56f4cb748e1248244ad00d1e300d6559, type: 3}
   rangeCheck: {fileID: 1421655806}
+  _spawnTimer: 0
 --- !u!1 &1421655802
 GameObject:
   m_ObjectHideFlags: 0
@@ -7397,7 +7436,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1424156196}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 471733617}
+        m_TargetAssemblyTypeName: Upgradig, Assembly-CSharp
+        m_MethodName: AddDamage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1424156196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7461,6 +7512,7 @@ MonoBehaviour:
   _weaponManager: {fileID: 11400000, guid: 2c81087438253aa4bb4d6d3e68a0f002, type: 2}
   icePrefab: {fileID: 4683577141982790757, guid: 25ffa915ebd7e8341acf06e8ee8dc39b, type: 3}
   rangeCheck: {fileID: 1421655806}
+  _spawnTimer: 0
 --- !u!1001 &1505392233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7613,7 +7665,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1525705284}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 471733617}
+        m_TargetAssemblyTypeName: Upgradig, Assembly-CSharp
+        m_MethodName: AddSpeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1525705284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9121,7 +9185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1905678146
 RectTransform:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using UnityEngine;
 public class BlueRock : MonoBehaviour
 {
     [SerializeField] WeaponManager _weaponManager;
+    public WeaponManager Manager => _weaponManager;
 
     [SerializeField] private GameObject icePrefab;
 
@@ -10,9 +11,12 @@ public class BlueRock : MonoBehaviour
 
     public float _spawnTimer;
 
+    public UpgradingScript upgrading;
+
     private void Start()
     {
-        _spawnTimer = _weaponManager.fireRate;
+        upgrading = GameObject.Find("UI Items Active").GetComponent<UpgradingScript>();
+        _spawnTimer = Manager.fireRate * upgrading.firefateMultiplier;
     }
 
     private void Update()
@@ -28,7 +32,7 @@ public class BlueRock : MonoBehaviour
                 ShootEnemy(enemy);
             }
 
-            _spawnTimer = _weaponManager.fireRate;
+            _spawnTimer = _weaponManager.fireRate * upgrading.firefateMultiplier;
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] Transform player;
+    [SerializeField] Transform player   ;
 
     [SerializeField] private Animator animator;
 

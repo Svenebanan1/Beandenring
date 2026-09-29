@@ -91,6 +91,9 @@ MonoBehaviour:
   enemy: {fileID: 0}
   enemyAI: {fileID: 0}
   _dmg: 0
+  _lifeTime: 0
+  _projectileSpeed: 0
+  upgrading: {fileID: 0}
 --- !u!54 &765699406775391814
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] private EnemyVariables _enemyVariables;
 
     [SerializeField] private GameObject _xpShard;
+    [SerializeField] private GameObject bloodExplosionPrefab;
 
     float hp;
 
@@ -21,6 +22,7 @@ public class EnemyHP : MonoBehaviour
 
         if (hp <= 0)
         {
+            Instantiate(bloodExplosionPrefab, transform.position, Quaternion.identity);
             Instantiate(_xpShard, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

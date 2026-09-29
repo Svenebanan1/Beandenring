@@ -4,15 +4,20 @@ public class RedRock : MonoBehaviour
 {
     [SerializeField] WeaponManager _weaponManager;
 
+    public WeaponManager Manager => _weaponManager;
+
     [SerializeField] private GameObject fireBallPrefab;
 
     public RangeCheck rangeCheck;
 
     public float _spawnTimer;
 
+    public UpgradingScript upgrading;
+
     private void Start()
     {
-        _spawnTimer = _weaponManager.fireRate;
+        upgrading = GameObject.Find("UI Items Active").GetComponent<UpgradingScript>();
+        _spawnTimer = Manager.fireRate * upgrading.firefateMultiplier;
     }
 
     private void Update()
@@ -28,7 +33,7 @@ public class RedRock : MonoBehaviour
                 ShootEnemy(enemy);
             }
 
-            _spawnTimer = _weaponManager.fireRate;
+            _spawnTimer = _weaponManager.fireRate * upgrading.firefateMultiplier;
         }
     }
 

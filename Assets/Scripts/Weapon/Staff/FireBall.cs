@@ -4,6 +4,8 @@ public class FireBall : MonoBehaviour
 {
     [SerializeField] WeaponManager _weaponManager;
 
+    public WeaponManager Manager => _weaponManager;
+
     private Rigidbody _rb;
     private Transform _target;
 
@@ -15,12 +17,15 @@ public class FireBall : MonoBehaviour
     [SerializeField] private float _lifeTime;
     public float _projectileSpeed;
 
+    public UpgradingScript upgrading;
+
     private void Start()
     {
-        _projectileSpeed = _weaponManager.projectileSpeed;
+        upgrading = GameObject.Find("UI Items Active").GetComponent<UpgradingScript>();
+        _projectileSpeed = Manager.projectileSpeed * upgrading.speedMultiplier;
+        _dmg = Manager.damage * upgrading.damageMultiplier;
         _lifeTime = _weaponManager.projectileLifetime;
 
-        _dmg = _weaponManager.damage;
         _rb = GetComponent<Rigidbody>();
         Destroy(gameObject, _lifeTime);
     }

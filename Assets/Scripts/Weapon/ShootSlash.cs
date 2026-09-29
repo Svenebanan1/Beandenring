@@ -3,15 +3,19 @@ using UnityEngine;
 public class ShootSlash : MonoBehaviour
 {
     [SerializeField] private WeaponManager _weaponManager;
+    public WeaponManager Manager => _weaponManager;
     [SerializeField] private GameObject _slashPrefab;
     [SerializeField] private RangeCheck _rangeCheck;
     [SerializeField] private float _spawnOffset = 1f;
 
     public float _spawnTimer;
 
+    public UpgradingScript upgrading;
+
     private void Start()
     {
-        _spawnTimer = _weaponManager.fireRate;
+        upgrading = GameObject.Find("UI Items Active").GetComponent<UpgradingScript>();
+        _spawnTimer = _weaponManager.fireRate * upgrading.firefateMultiplier;
     }
 
     private void Update()
@@ -21,7 +25,7 @@ public class ShootSlash : MonoBehaviour
         if (_spawnTimer <= 0f && _rangeCheck.isInRange)
         {
             ShootInFourDirections();
-            _spawnTimer = _weaponManager.fireRate;
+            _spawnTimer = _weaponManager.fireRate * upgrading.firefateMultiplier;
         }
     }
 

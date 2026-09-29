@@ -201,6 +201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
   _enemyVariables: {fileID: 11400000, guid: 57a8d23e58230794f84e355919a621a3, type: 2}
   _xpShard: {fileID: 5172861670294711587, guid: 5e8345b12e6252d4eb5593c4227cf456, type: 3}
+  bloodExplosionPrefab: {fileID: 843515181699624692, guid: fd7b68c7c011770428ca39e405d33cb7, type: 3}
 --- !u!136 &4594186276467216485
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -351,5 +352,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySword
   _enemyVariables: {fileID: 11400000, guid: 57a8d23e58230794f84e355919a621a3, type: 2}
+  _dmg: 0
   boxCollider: {fileID: 9079298257443563464}
   playerHP: {fileID: 0}

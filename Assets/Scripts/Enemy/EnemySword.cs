@@ -1,8 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySword : MonoBehaviour
 {
     [SerializeField] private EnemyVariables _enemyVariables;
+    [SerializeField] private float _dmg;
 
     [SerializeField] private BoxCollider boxCollider;
 
@@ -13,7 +15,7 @@ public class EnemySword : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        _dmg = _enemyVariables.dmg;
     }
 
     // Update is called once per frame
@@ -26,7 +28,7 @@ public class EnemySword : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerHP.TakeDamage(_enemyVariables.dmg);
+            playerHP.TakeDamage(_dmg);
             boxCollider.enabled = false;
         }
     }

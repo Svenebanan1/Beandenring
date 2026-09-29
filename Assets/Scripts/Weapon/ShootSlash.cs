@@ -65,4 +65,5 @@ public class ShootSlash : MonoBehaviour
             slash.SetDirection(direction);
         }
     }
+
 }

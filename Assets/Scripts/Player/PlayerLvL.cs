@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using NUnit.Framework.Internal;
+using UnityEditor.Experimental.GraphView;
 
 public class PlayerLvL : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class PlayerLvL : MonoBehaviour
 
     private float _targetFill;
 
+    public GameObject levelPanel;
+
+    public Upgradig upgrading;
     private void Start()
     {
         _maxXP = _playerValues.xpTillNextLvL;
@@ -45,9 +49,16 @@ public class PlayerLvL : MonoBehaviour
     private void LevelUp()
     {
         _currentLevel++;
-        _maxXP *= 1.1f;
+        _maxXP += 5;
+        _maxXP *= 1.02f;
 
-        // Do not reset XP here.
+        upgrading.Upgrading();
+        while(upgrading.upgradingIF == true)
+        {
+            Time.timeScale = 0f;
+            levelPanel.SetActive(true);
+        }
+       
     }
 
     public void GainedXP()

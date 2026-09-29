@@ -1,3 +1,4 @@
+using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class PlayerHP : MonoBehaviour
 {
     [SerializeField] private PlayerValues _playerValues;
     [SerializeField] private float maxHP;
+    [SerializeField] private float currentHP;
+    [SerializeField] private float _timeBeforeRegen;
+    [SerializeField] private bool _canRegen;
 
     public UnityEngine.UI.Image healthImage;
 
@@ -16,15 +20,19 @@ public class PlayerHP : MonoBehaviour
     void Start()
     {
         maxHP = _playerValues.maxhp;
-        _playerValues.hp = _playerValues.maxhp;
+        currentHP = _playerValues.hp;
+        currentHP = maxHP;
     }
 
     // Update is called once per frame
     void Update()
     {
-        _playerValues.hp = Mathf.Clamp(_playerValues.hp, 0, maxHP);
+        currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        _timeBeforeRegen = Mathf.Clamp(_timeBeforeRegen, 0, 4);
 
-        float targetHealth = _playerValues.hp / maxHP;
+        _timeBeforeRegen -= Time.deltaTime;
+
+        float targetHealth = currentHP / maxHP;
 
         healthImage.fillAmount = Mathf.MoveTowards(
             healthImage.fillAmount,
@@ -32,12 +40,24 @@ public class PlayerHP : MonoBehaviour
             0.5f * Time.deltaTime
         );
 
-        text.text = $"{_playerValues.hp} / {maxHP}";
+        text.text = $"{currentHP} / {maxHP}";
+
+        if(_timeBeforeRegen <= 0 && currentHP != maxHP)
+        {
+            _canRegen = true;
+            if(_canRegen)
+            {
+                currentHP += 1;
+                _timeBeforeRegen = 0.15f;
+            }
+        }
     }
 
     public void TakeDamage(float dmg)
     {
-        _playerValues.hp -= dmg;
+        currentHP -= dmg;
+        _timeBeforeRegen = 4f;
+        _canRegen = false;
     }
 
 }

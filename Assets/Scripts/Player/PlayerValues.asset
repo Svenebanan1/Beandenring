@@ -15,5 +15,5 @@ MonoBehaviour:
   xp: 0
   xpTillNextLvL: 100
   lvl: 1
-  hp: 100
+  hp: 0
   maxhp: 100

@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UpgradingScript : MonoBehaviour
@@ -34,6 +35,11 @@ public class UpgradingScript : MonoBehaviour
     public float firefateMultiplier;
     public float speedMultiplier;
 
+    public List<GameObject> IconLocation = new List<GameObject>();
+
+    public TextMeshProUGUI dmg;
+    public TextMeshProUGUI firerate;
+    public TextMeshProUGUI speed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,9 +52,16 @@ public class UpgradingScript : MonoBehaviour
         swordIcon.SetActive(false);
         slashIcon.SetActive(false);
 
-        damageMultiplier = 1;
-        firefateMultiplier = 1;
-        speedMultiplier = 1;
+        damageMultiplier = 1f;
+        firefateMultiplier = 1f;
+        speedMultiplier = 1f;
+    }
+
+    private void Update()
+    {
+        dmg.SetText("Damage Multiplier: {0:0.00}", damageMultiplier);
+        firerate.SetText("Firerate Multiplier: {0:0.00}", firefateMultiplier);
+        speed.SetText("Projectile Speed Multiplier: {0:0.00}", speedMultiplier);
     }
 
     public void AddDamage()
@@ -86,8 +99,7 @@ public class UpgradingScript : MonoBehaviour
         swordUnlocked = true;
         swordactivation.SetActive(true);
 
-        AddIcon(swordIcon);
-
+     
         unlockPanel.SetActive(false);
         Time.timeScale = 1f;
 
@@ -102,8 +114,7 @@ public class UpgradingScript : MonoBehaviour
         slashUnlocked = true;
         slashactivation.SetActive(true);
 
-        AddIcon(slashIcon);
-
+       
         unlockPanel.SetActive(false);
         Time.timeScale = 1f;
 
@@ -119,22 +130,6 @@ public class UpgradingScript : MonoBehaviour
         yield return null;
     }
 
-    [SerializeField] private RectTransform lastIcon;
-    [SerializeField] private float iconSpacing = 80f;
-
-    private void AddIcon(GameObject icon)
-    {
-        RectTransform newIcon = icon.GetComponent<RectTransform>();
-
-        newIcon.anchoredPosition = new Vector2(
-            lastIcon.anchoredPosition.x,
-            lastIcon.anchoredPosition.y - iconSpacing
-        );
-
-        icon.SetActive(true);
-
-        lastIcon = newIcon;
-    }
 }
 
 

@@ -9,11 +9,14 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] private GameObject _xpShard;
     [SerializeField] private GameObject bloodExplosionPrefab;
 
+    private float bloodLifetime;
+
     float hp;
 
     private void Start()
     {
         hp = _enemyVariables.maxHp;
+        bloodLifetime = 1f;
     }
 
     public void TakeDamage(float dmg)
@@ -22,7 +25,8 @@ public class EnemyHP : MonoBehaviour
 
         if (hp <= 0)
         {
-            Instantiate(bloodExplosionPrefab, transform.position, Quaternion.identity);
+            GameObject blood = Instantiate(bloodExplosionPrefab, transform.position, Quaternion.identity);
+            Destroy(blood, bloodLifetime);
             Instantiate(_xpShard, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

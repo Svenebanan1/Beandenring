@@ -24,6 +24,8 @@ public class PlayerLvL : MonoBehaviour
 
     public UpgradingScript upgrading;
 
+    private bool maxLevelReached;
+
     private void Start()
     {
         _maxXP = _playerValues.xpTillNextLvL;
@@ -35,6 +37,8 @@ public class PlayerLvL : MonoBehaviour
 
         UpdateTargetFill();
         _xpBar.fillAmount = _targetFill;
+
+        maxLevelReached = false;
 
     }
 
@@ -52,6 +56,11 @@ public class PlayerLvL : MonoBehaviour
             Destroy(unlockPanel);
         } 
         
+        if(_currentLevel == 25)
+        {
+            maxLevelReached = true;
+        }
+
     }
 
     private void LevelUp()
@@ -63,6 +72,9 @@ public class PlayerLvL : MonoBehaviour
 
     public void GainedXP()
     {
+        if (maxLevelReached)
+            return;
+
         _currentXP += 15f;
 
         while (_currentXP >= _maxXP)

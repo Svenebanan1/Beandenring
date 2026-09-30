@@ -31,6 +31,10 @@ public class UpgradingScript : MonoBehaviour
     public GameObject swordIcon;
     public GameObject slashIcon;
 
+    public GameObject dmgbutton;
+    public GameObject fireratebutton;
+    public GameObject speedbutton;
+
     public float damageMultiplier;
     public float firefateMultiplier;
     public float speedMultiplier;
@@ -62,6 +66,18 @@ public class UpgradingScript : MonoBehaviour
         dmg.SetText("Damage Multiplier: {0:0.00}", damageMultiplier);
         firerate.SetText("Firerate Multiplier: {0:0.00}", firefateMultiplier);
         speed.SetText("Projectile Speed Multiplier: {0:0.00}", speedMultiplier);
+
+        if (firefateMultiplier == 0.1f)
+        {
+            fireratebutton.SetActive(false);
+        }
+      
+        if (speedMultiplier == 2.6f)
+        {
+            speedbutton.SetActive(false);
+        }
+
+
     }
 
     public void AddDamage()
@@ -99,7 +115,10 @@ public class UpgradingScript : MonoBehaviour
         swordUnlocked = true;
         swordactivation.SetActive(true);
 
-     
+        swordIcon.SetActive(true);
+        swordIcon.transform.position = IconLocation[0].transform.position;
+        IconLocation.RemoveAt(0);
+
         unlockPanel.SetActive(false);
         Time.timeScale = 1f;
 
@@ -114,7 +133,10 @@ public class UpgradingScript : MonoBehaviour
         slashUnlocked = true;
         slashactivation.SetActive(true);
 
-       
+        slashIcon.SetActive(true);
+        slashIcon.transform.position = IconLocation[0].transform.position;
+        IconLocation.RemoveAt(0);
+
         unlockPanel.SetActive(false);
         Time.timeScale = 1f;
 

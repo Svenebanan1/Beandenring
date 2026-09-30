@@ -8,7 +8,7 @@ public class EnemySword : MonoBehaviour
 
     [SerializeField] private BoxCollider boxCollider;
 
-    public PlayerHP playerHP;
+    private PlayerHP playerHP;
 
 
 
@@ -28,6 +28,7 @@ public class EnemySword : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            playerHP = GetComponent<PlayerHP>();    
             playerHP.TakeDamage(_dmg);
             boxCollider.enabled = false;
         }

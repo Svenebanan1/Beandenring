@@ -12,6 +12,7 @@ public class EnemyHP : MonoBehaviour
     private float bloodLifetime;
 
     float hp;
+    private WaveManager waveManager;
 
     private void Start()
     {
@@ -28,6 +29,8 @@ public class EnemyHP : MonoBehaviour
             GameObject blood = Instantiate(bloodExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(blood, bloodLifetime);
             Instantiate(_xpShard, transform.position, Quaternion.identity);
+            waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
+            waveManager.kills += 1;
             Destroy(gameObject);
         }
     }

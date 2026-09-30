@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99304485, z: 0, w: -0.11773663}
   m_LocalPosition: {x: -0.04129, y: 1.85, z: 22.5}
-  m_LocalScale: {x: 1.2695806, y: 1.269581, z: 1.269581}
+  m_LocalScale: {x: 1.2695805, y: 1.269581, z: 1.2695808}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7043440157166755424}
@@ -110,7 +110,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 6144
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -215,7 +215,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 1536
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

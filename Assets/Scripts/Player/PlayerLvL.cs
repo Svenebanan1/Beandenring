@@ -51,7 +51,7 @@ public class PlayerLvL : MonoBehaviour
             _targetFill,
             _fillSpeed * Time.deltaTime
         );
-        if(upgrading.swordUnlocked && upgrading.slashUnlocked)
+        if(upgrading.swordUnlocked && upgrading.slashUnlocked && upgrading.lightningUnlocked)
         {
             Destroy(unlockPanel);
         } 

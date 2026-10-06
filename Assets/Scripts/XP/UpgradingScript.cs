@@ -7,29 +7,25 @@ using UnityEngine;
 public class UpgradingScript : MonoBehaviour
 {
     public bool upgradingIF;
-    public FireBall fireBall;
-    public Ice icePick;
-    public Slash slash;
-    public Sword sword;
-    public ShootSlash shootSlash;
-    public ShootSword shootSword;
-    public RedRock redRock;
-    public BlueRock blueRock;
 
     public GameObject levelPanel;
     public GameObject unlockPanel;
 
     public bool swordUnlocked;
     public bool slashUnlocked;
+    public bool lightningUnlocked;
 
     public GameObject swordactivation;
     public GameObject slashactivation;
+    public GameObject lightningactivation;
 
     public GameObject swordButton;
     public GameObject slashButton;
+    public GameObject lightButton;
 
     public GameObject swordIcon;
     public GameObject slashIcon;
+    public GameObject lightningIcon;
 
     public GameObject dmgbutton;
     public GameObject fireratebutton;
@@ -52,9 +48,11 @@ public class UpgradingScript : MonoBehaviour
 
         swordactivation.SetActive(false);
         slashactivation.SetActive(false);
+        lightningactivation.SetActive(false);
 
         swordIcon.SetActive(false);
         slashIcon.SetActive(false);
+        lightningIcon.SetActive(false);
 
         damageMultiplier = 1f;
         firefateMultiplier = 1f;
@@ -144,6 +142,24 @@ public class UpgradingScript : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         Destroy(slashButton);
+    }
+
+    public void unlockLightning()
+    {
+        lightningUnlocked = true;
+        lightningactivation.SetActive(true);
+
+        lightningIcon.SetActive(true);
+        lightningIcon.transform.position = IconLocation[0].transform.position;
+        IconLocation.RemoveAt(0);
+
+        unlockPanel.SetActive(false);
+        Time.timeScale = 1f;
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Destroy(lightButton);
     }
 
     public IEnumerator Upgrading()

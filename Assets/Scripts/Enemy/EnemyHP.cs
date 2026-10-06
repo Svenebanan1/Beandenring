@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class EnemyHP : MonoBehaviour
 {
@@ -11,14 +12,15 @@ public class EnemyHP : MonoBehaviour
 
     private float bloodLifetime;
 
-    float hp;
+    public float hp;
     private WaveManager waveManager;
 
     [SerializeField] private EnemyHealthBar _healthBar;
 
     private void Start()
     {
-        hp = _enemyVariables.maxHp;
+        waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
+        hp = _enemyVariables.maxHp * waveManager.enemyHPMultiplier; 
         bloodLifetime = 1f;
     }
 

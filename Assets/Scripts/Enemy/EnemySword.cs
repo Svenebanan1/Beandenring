@@ -4,18 +4,16 @@ using UnityEngine;
 public class EnemySword : MonoBehaviour
 {
     [SerializeField] private EnemyVariables _enemyVariables;
-    [SerializeField] private float _dmg;
+    public float _dmg;
 
     [SerializeField] private BoxCollider boxCollider;
 
-    private PlayerHP playerHP;
+    private WaveManager waveManager;
 
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        _dmg = _enemyVariables.dmg;
+        waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
+        _dmg = _enemyVariables.maxHp * waveManager.enemyDMGMultiplier;
     }
 
     // Update is called once per frame
@@ -28,7 +26,7 @@ public class EnemySword : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerHP = GetComponent<PlayerHP>();    
+            PlayerHP playerHP = other.GetComponent<PlayerHP>();    
             playerHP.TakeDamage(_dmg);
             boxCollider.enabled = false;
         }

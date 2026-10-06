@@ -7,10 +7,16 @@ public class AOE : MonoBehaviour
 
     [SerializeField] WeaponManager _weaponManager;
 
+    public WeaponManager Manager => _weaponManager;
+
+    public UpgradingScript upgrading;
+
 
     private void Start()
     {
-        aoeDamage = _weaponManager.damage * 0.75f;
+        upgrading = GameObject.Find("UI Items Active").GetComponent<UpgradingScript>();
+        aoeDamage = Manager.damage * upgrading.damageMultiplier * 0.75f;
+
     }
 
     private void OnTriggerEnter(Collider other)

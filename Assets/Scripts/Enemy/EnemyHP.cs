@@ -14,6 +14,8 @@ public class EnemyHP : MonoBehaviour
     float hp;
     private WaveManager waveManager;
 
+    [SerializeField] private EnemyHealthBar _healthBar;
+
     private void Start()
     {
         hp = _enemyVariables.maxHp;
@@ -23,6 +25,7 @@ public class EnemyHP : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         hp -= dmg;
+        _healthBar.SetHealth(hp, _enemyVariables.maxHp);
 
         if (hp <= 0)
         {

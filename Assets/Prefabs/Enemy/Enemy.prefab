@@ -203,7 +203,11 @@ MonoBehaviour:
   _enemyVariables: {fileID: 11400000, guid: 57a8d23e58230794f84e355919a621a3, type: 2}
   _xpShard: {fileID: 5172861670294711587, guid: 5e8345b12e6252d4eb5593c4227cf456, type: 3}
   bloodExplosionPrefab: {fileID: 843515181699624692, guid: fd7b68c7c011770428ca39e405d33cb7, type: 3}
+  hp: 0
   _healthBar: {fileID: 4289253928452162057}
+  enemyRenderer: {fileID: 6508520248271368087}
+  hitColor: {r: 1, g: 0, b: 0, a: 0.74509805}
+  flashTime: 0.08
 --- !u!136 &4594186276467216485
 CapsuleCollider:
   m_ObjectHideFlags: 0

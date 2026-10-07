@@ -12,7 +12,7 @@ public class EnemySword : MonoBehaviour
 
     private void Start()
     {
-        waveManager = GameObject.Find("GameManager").GetComponent<WaveManager>();
+        waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
         _dmg = _enemyVariables.maxHp * waveManager.enemyDMGMultiplier;
     }
 

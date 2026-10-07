@@ -80,7 +80,7 @@ public class UpgradingScript : MonoBehaviour
 
     public void AddDamage()
     {
-        damageMultiplier += 0.15f;
+        damageMultiplier *= 1.125f;
         upgradingIF = false;
         levelPanel.SetActive(false);
         Time.timeScale = 1f;
@@ -90,7 +90,7 @@ public class UpgradingScript : MonoBehaviour
 
     public void AddFirerate()
     {
-        firefateMultiplier -= 0.1f;
+        firefateMultiplier *= 0.9f;
         upgradingIF = false;
         levelPanel.SetActive(false);
         Time.timeScale = 1f;
@@ -100,7 +100,7 @@ public class UpgradingScript : MonoBehaviour
 
     public void AddSpeed()
     {
-        speedMultiplier += 0.2f;
+        speedMultiplier *= 1.2f;
         upgradingIF = false;
         levelPanel.SetActive(false);
         Time.timeScale = 1f;

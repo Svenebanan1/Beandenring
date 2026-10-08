@@ -11,6 +11,7 @@ public class Ice : MonoBehaviour
 
     public EnemyHP enemy;
     public EnemyAI enemyAI;
+    public RangedEnemyAI rangedEnemyAI;
 
     public float _dmg;
     [SerializeField] private float _lifeTime;
@@ -62,6 +63,17 @@ public class Ice : MonoBehaviour
 
             enemy.TakeDamage(_dmg);
 
+            Destroy(gameObject);
+        }
+
+        if(other.gameObject.CompareTag("RangedEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            rangedEnemyAI = other.gameObject.GetComponent<RangedEnemyAI>();
+
+            rangedEnemyAI.SlowEffect();
+
+            enemy.TakeDamage(_dmg);
             Destroy(gameObject);
         }
     }

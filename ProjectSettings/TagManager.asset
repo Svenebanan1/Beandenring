@@ -8,6 +8,9 @@ TagManager:
   - EnemySword
   - XpMpve
   - XpMove
+  - RangedEnemy
+  - TankEnemy
+  - EnemyArms
   layers:
   - Default
   - TransparentFX

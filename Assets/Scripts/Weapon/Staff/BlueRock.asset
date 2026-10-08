@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
   damage: 0
   projectileSpeed: 0
-  fireRate: 0.35
+  fireRate: 0.4
   projectileAmount: 0
   projectileLifetime: 0
   range: 0

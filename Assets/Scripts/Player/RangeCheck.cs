@@ -54,11 +54,27 @@ public class RangeCheck : MonoBehaviour
 
             Debug.Log("Enemy in range");
         }
+
+        if(other.CompareTag("RangedEnemy"))
+        {
+            if (!_enemiesInRange.Contains(other.transform))
+            {
+                _enemiesInRange.Add(other.transform);
+            }
+            Debug.Log("Ranged Enemy in range");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy"))
+        {
+            _enemiesInRange.Remove(other.transform);
+
+            Debug.Log("Enemy out of range");
+        }
+
+        if (other.CompareTag("RangedEnemy"))
         {
             _enemiesInRange.Remove(other.transform);
 

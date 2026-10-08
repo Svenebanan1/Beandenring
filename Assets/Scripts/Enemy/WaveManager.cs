@@ -16,10 +16,14 @@ public class WaveManager : MonoBehaviour
     public float kills;
 
     [SerializeField] private float scaleFactor = 0.85f; // Factor by which the spawn interval decreases
-    [SerializeField] private float scaletime = 60f; // Time interval after which the spawn interval decreases
+    [SerializeField] private float scaletime = 30f; // Time interval after which the spawn interval decreases
 
     public float enemyHPMultiplier;
     public float enemyDMGMultiplier;
+    public float enemyAmount = 1f; // Number of enemies to spawn each time
+
+    [SerializeField, Range(0f, 0.8f)]
+    private float rareEnemyChance = 0.2f;
 
     private void Start()
     {
@@ -36,7 +40,7 @@ public class WaveManager : MonoBehaviour
         if (scaletime <= 0f)
         {
             spawninterval *= scaleFactor;
-            scaletime = 60f;
+            scaletime = 30f;
             ScaleEnemy();
         }
 
@@ -50,19 +54,34 @@ public class WaveManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        GameObject enemy = enemyprefab[Random.Range(0, enemyprefab.Length)];
+        for (int i = 0; i < enemyAmount; i++)
+        {
+            GameObject enemy;
 
-        Vector3 randomDirection = Random.insideUnitSphere.normalized;
-        randomDirection.y = 0f;
+            if (Random.value < rareEnemyChance)
+            {
+                // Spawn the rare enemy
+                enemy = enemyprefab[enemyprefab.Length - 1];
+            }
+            else
+            {
+                // Spawn one of the common enemies
+                enemy = enemyprefab[Random.Range(0, enemyprefab.Length - 1)];
+            }
 
-        Vector3 spawnPos = player.position + randomDirection * spawnradius;
+            Vector3 randomDirection = Random.insideUnitSphere.normalized;
+            randomDirection.y = 0f;
 
-        Instantiate(enemy, spawnPos, Quaternion.identity);
+            Vector3 spawnPos = player.position + randomDirection * spawnradius;
+
+            Instantiate(enemy, spawnPos, Quaternion.identity);
+        }
     }
 
     void ScaleEnemy()
     {
-        enemyHPMultiplier *= 1.05f; // Increase HP multiplier by 5%
-        enemyDMGMultiplier *= 1.1f; // Increase DMG multiplier by 10%
+        enemyHPMultiplier *= 1.15f; // Increase HP multiplier by 5%
+        enemyDMGMultiplier *= 1.25f; // Increase DMG multiplier by 10%
+        enemyAmount += 1f;
     }
 }

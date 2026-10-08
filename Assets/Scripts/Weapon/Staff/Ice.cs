@@ -76,5 +76,14 @@ public class Ice : MonoBehaviour
             enemy.TakeDamage(_dmg);
             Destroy(gameObject);
         }
+
+        if(other.gameObject.CompareTag("TankEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            TankEnemyAI tankEnemyAI = other.gameObject.GetComponent<TankEnemyAI>();
+            tankEnemyAI.SlowEffect();
+            enemy.TakeDamage(_dmg);
+            Destroy(gameObject);
+        }
     }
 }

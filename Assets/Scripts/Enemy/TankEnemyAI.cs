@@ -9,7 +9,7 @@ public class TankEnemyAI : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    [SerializeField] private SphereCollider Arms;
+    public SphereCollider arms;
 
     private Rigidbody rb;
 
@@ -29,9 +29,6 @@ public class TankEnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         animator = GetComponent<Animator>();
-        Arms = GetComponentInChildren<SphereCollider>();
-
-        Arms.enabled = false;
 
         _enemyVariables.speed = agent.speed;
     }
@@ -41,12 +38,16 @@ public class TankEnemyAI : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
-    IEnumerator Attack()
+    IEnumerator AttackAnim()
     {
-
         animator.SetTrigger("Attack");
 
         yield return null;
+    }
+
+    public void Attack()
+    {
+        arms.enabled = true;
     }
 
     IEnumerator Slowed()
@@ -62,7 +63,7 @@ public class TankEnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(Attack());
+            StartCoroutine(AttackAnim());
         }
     }
 
@@ -70,13 +71,9 @@ public class TankEnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StopCoroutine(Attack());
+            arms.enabled = false;
+            StopCoroutine(AttackAnim());
         }
-    }
-
-    public void EnableHitbox()
-    {
-        Arms.enabled = true;
     }
 
     public void SlowEffect()

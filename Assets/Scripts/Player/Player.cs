@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private float gravity = -9.81f; // Gravity applied to the player
     private float jumpHeight = 5.5f; // Height of the player's jump
 
+    [SerializeField] private Animator animator;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -34,17 +36,20 @@ public class Player : MonoBehaviour
     private void Start()
     {
         currentSpeed = walkSpeed;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         moveInput = moveAction.ReadValue<Vector2>();
         lookInput = lookAction.ReadValue<Vector2>();
 
+        OnRun();
         OnMove();
         OnJump();
-        OnRun();
+
+        UpdateAnimation();
     }
 
     private void OnEnable()
@@ -61,6 +66,7 @@ public class Player : MonoBehaviour
 
     private void OnMove()
     {
+
         Vector3 inputDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
         if (inputDirection.sqrMagnitude > 1f)
@@ -153,6 +159,25 @@ public class Player : MonoBehaviour
         else
         {
             currentSpeed = walkSpeed;
+        }
+    }
+
+    private void UpdateAnimation()
+    {
+        bool isMoving = moveInput.sqrMagnitude > 0.01f;
+        bool isRunning = runAction.IsPressed();
+
+        if (!isMoving)
+        {
+            animator.SetInteger("MovementState", 0);
+        }
+        else if (isRunning)
+        {
+            animator.SetInteger("MovementState", 2);
+        }
+        else
+        {
+            animator.SetInteger("MovementState", 1);
         }
     }
 

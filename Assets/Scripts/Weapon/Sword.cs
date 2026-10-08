@@ -69,6 +69,34 @@ public class Sword : MonoBehaviour
             }
 
         }
+
+        if (other.gameObject.CompareTag("RangedEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(_dmg);
+                // Stop homing, but continue flying forward.
+                if (other.transform == _target || other.transform.IsChildOf(_target))
+                {
+                    _target = null;
+                }
+            }
+        }
+
+        if (other.gameObject.CompareTag("TankEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(_dmg);
+                // Stop homing, but continue flying forward.
+                if (other.transform == _target || other.transform.IsChildOf(_target))
+                {
+                    _target = null;
+                }
+            }
+        }
     }
 }
 

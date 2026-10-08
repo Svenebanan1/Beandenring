@@ -9,6 +9,7 @@ public class FireBall : MonoBehaviour
     private Rigidbody _rb;
     private Transform _target;
 
+    public RangedEnemyAI rangedEnemyAI;
     public EnemyHP enemy;
 
     public float _dmg;
@@ -56,9 +57,29 @@ public class FireBall : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            // Fix: Instantiate the GameObject, not its position
-            Instantiate(_targetGameObject, transform.position, Quaternion.identity);
             enemy = other.gameObject.GetComponent<EnemyHP>();
+
+            enemy.TakeDamage(_dmg);
+
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("RangedEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            rangedEnemyAI = other.gameObject.GetComponent<RangedEnemyAI>();
+
+            rangedEnemyAI.SlowEffect();
+
+            enemy.TakeDamage(_dmg);
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("TankEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            TankEnemyAI tankEnemyAI = other.gameObject.GetComponent<TankEnemyAI>();
+            tankEnemyAI.SlowEffect();
             enemy.TakeDamage(_dmg);
             Destroy(gameObject);
         }

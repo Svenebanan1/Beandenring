@@ -11,11 +11,15 @@ public class LightningDamage : MonoBehaviour
 
     public UpgradingScript upgrading;
 
+    private float lifetime = 0.5f;
+
 
     private void Start()
     {
         upgrading = GameObject.Find("UI Items Active").GetComponent<UpgradingScript>();
         aoeDamage = Manager.damage * upgrading.damageMultiplier;
+
+        Destroy(gameObject, lifetime);
 
     }
 
@@ -24,8 +28,24 @@ public class LightningDamage : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
+
             enemy.TakeDamage(aoeDamage);
 
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("RangedEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+
+            enemy.TakeDamage(aoeDamage);
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("TankEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+            enemy.TakeDamage(aoeDamage);
             Destroy(gameObject);
         }
     }

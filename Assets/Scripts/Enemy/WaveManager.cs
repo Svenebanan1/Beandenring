@@ -16,7 +16,9 @@ public class WaveManager : MonoBehaviour
     public float kills;
 
     [SerializeField] private float scaleFactor = 0.85f; // Factor by which the spawn interval decreases
-    [SerializeField] private float scaletime = 30f; // Time interval after which the spawn interval decreases
+    [SerializeField] private float maxScaleTime = 45f; // Time interval after which the spawn interval decreases
+    [SerializeField] private float scaletime; // Current time until the next scaling
+    [SerializeField] private float scaleAmount;
 
     public float enemyHPMultiplier;
     public float enemyDMGMultiplier;
@@ -29,6 +31,7 @@ public class WaveManager : MonoBehaviour
     {
         enemyHPMultiplier = 1f;
         enemyDMGMultiplier = 1f;    
+        scaletime = maxScaleTime; // Initialize the scaling timer
     }
     // Update is called once per frame
     void Update()
@@ -40,8 +43,9 @@ public class WaveManager : MonoBehaviour
         if (scaletime <= 0f)
         {
             spawninterval *= scaleFactor;
-            scaletime = 30f;
+            scaletime = maxScaleTime *= 0.85f; // Reset the scaling timer
             ScaleEnemy();
+            scaleAmount++;
         }
 
         if (timer >= spawninterval)
@@ -82,6 +86,7 @@ public class WaveManager : MonoBehaviour
     {
         enemyHPMultiplier *= 1.15f; // Increase HP multiplier by 5%
         enemyDMGMultiplier *= 1.25f; // Increase DMG multiplier by 10%
-        enemyAmount += 1f;
+        if (scaleAmount % 2 == 0)
+            enemyAmount += 1f;
     }
 }

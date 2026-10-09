@@ -13,14 +13,9 @@ public class EnemySword : MonoBehaviour
     private void Start()
     {
         waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
-        _dmg = _enemyVariables.maxHp * waveManager.enemyDMGMultiplier;
+        _dmg = _enemyVariables.dmg * waveManager.enemyDMGMultiplier;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {

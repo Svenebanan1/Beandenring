@@ -56,7 +56,7 @@ public class PlayerLvL : MonoBehaviour
             Destroy(unlockPanel);
         } 
         
-        if(_currentLevel == 25)
+        if(_currentLevel == 100)
         {
             maxLevelReached = true;
         }
@@ -84,7 +84,7 @@ public class PlayerLvL : MonoBehaviour
             StartCoroutine(upgrading.Upgrading());
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            if (_currentLevel == 5 || _currentLevel == 10)
+            if (_currentLevel == 5 || _currentLevel == 10 || _currentLevel == 20)
             {
                 unlockPanel.SetActive(true);
                 Time.timeScale = 0f;

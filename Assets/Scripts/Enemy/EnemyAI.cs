@@ -18,6 +18,8 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private EnemyVariables _enemyVariables;
 
+    [SerializeField] private float rotationSpeed = 720f;
+
     private void Awake()
     {
        player = GameObject.Find("Character").transform;
@@ -34,11 +36,30 @@ public class EnemyAI : MonoBehaviour
         enemySword.enabled = false;
 
         _enemyVariables.speed = agent.speed;
+
+        agent.updateRotation = false;
     }
 
     void Update()
     {
         agent.SetDestination(player.position);
+
+        // Get direction towards player
+        Vector3 direction = player.position - transform.position;
+
+        // Prevent enemy from looking up or down
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.deltaTime
+            );
+        }
     }
 
     IEnumerator Attack()

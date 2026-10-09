@@ -10,21 +10,23 @@ public class Rock : MonoBehaviour
     public float _dmg;
 
     private float lifeTime = 1.25f;
+
+    public GameObject rockPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rockCollider = GetComponent<MeshCollider>();
-        rockCollider.convex = false;
+        rockCollider.enabled = false;
 
         waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
         _dmg = _enemyVariables.maxHp * waveManager.enemyDMGMultiplier;
 
-        Destroy(gameObject, lifeTime);
+        Destroy(rockPrefab, lifeTime);
     }
 
     void Attack()
     {
-        rockCollider.convex = true; 
+        rockCollider.enabled = true; 
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,7 +35,7 @@ public class Rock : MonoBehaviour
         {
             PlayerHP playerHP = other.GetComponent<PlayerHP>();
             playerHP.TakeDamage(_dmg);
-            rockCollider.convex = false;
+            rockCollider.enabled = false;
         }
     }
 }

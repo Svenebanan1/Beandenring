@@ -34,6 +34,7 @@ public class UpgradingScript : MonoBehaviour
     public float damageMultiplier;
     public float firefateMultiplier;
     public float speedMultiplier;
+    private float dmgmultiplieramount;
 
     public List<GameObject> IconLocation = new List<GameObject>();
 
@@ -80,7 +81,15 @@ public class UpgradingScript : MonoBehaviour
 
     public void AddDamage()
     {
-        damageMultiplier *= 1.125f;
+        dmgmultiplieramount++;
+        if (dmgmultiplieramount == 10)
+        {
+            damageMultiplier *= 1.05f;
+        }
+        else
+        {
+            damageMultiplier *= 1.1f;
+        }
         upgradingIF = false;
         levelPanel.SetActive(false);
         Time.timeScale = 1f;

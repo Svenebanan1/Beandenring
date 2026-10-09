@@ -5506,7 +5506,7 @@ MonoBehaviour:
   waveManager: {fileID: 231810686}
   virtualCamera: {fileID: 1603105128}
   multiChannelPerlin: {fileID: 1603105130}
-  targetShakeIntensity: 20
+  targetShakeIntensity: 40
   shakeDuration: 5
   targetLensSize: 120
   lensChangeSpeed: 10

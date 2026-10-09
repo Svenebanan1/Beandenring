@@ -55,7 +55,7 @@ public class BossSpawn : MonoBehaviour
 
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        if (time >= 20 && !bossSpawned)
+        if (time >= 420 && !bossSpawned)
         {
             bossSpawned = true;
             StartCoroutine(SpawnBoss());

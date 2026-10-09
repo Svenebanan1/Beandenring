@@ -15,6 +15,8 @@ public class RangedEnemyAI : MonoBehaviour
 
     [SerializeField] private EnemyVariables _enemyVariables;
 
+    [SerializeField] private GameObject _redCircle;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -34,15 +36,7 @@ public class RangedEnemyAI : MonoBehaviour
     {
         agent.SetDestination(player.position);
     }
-
-    IEnumerator Attack()
-    {
-
-        animator.SetTrigger("Attack");
-
-        yield return null;
-    }
-
+        
     public void SlowEffect()
     {
         Debug.Log("slowed");
@@ -58,11 +52,11 @@ public class RangedEnemyAI : MonoBehaviour
         agent.speed = _enemyVariables.speed;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(Attack());
+            StartCoroutine(AttackAnimation());
         }
     }
 
@@ -70,7 +64,16 @@ public class RangedEnemyAI : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StopCoroutine(Attack());
+            StopCoroutine(AttackAnimation());
         }
+    }
+
+    IEnumerator AttackAnimation()
+    {
+        animator.SetTrigger("Attack");
+
+        Instantiate(_redCircle, player.transform.position + new Vector3(0,-1,0), Quaternion.identity);
+
+        yield return null;
     }
 }

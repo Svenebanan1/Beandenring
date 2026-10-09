@@ -279,7 +279,7 @@ Animator:
   m_GameObject: {fileID: 3300076997838539588}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 79abf81473fb53842860755331be004b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -313,6 +313,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   _enemyVariables: {fileID: 11400000, guid: eaf031ac321b35e41a3f5c5d61799dde, type: 2}
+  _redCircle: {fileID: 6188555937460796802, guid: 01fb586c24cc5264ab5419f3fb7de175, type: 3}
 --- !u!114 &8127612254376027526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +329,7 @@ MonoBehaviour:
   _enemyVariables: {fileID: 11400000, guid: eaf031ac321b35e41a3f5c5d61799dde, type: 2}
   _xpShard: {fileID: 5172861670294711587, guid: 5e8345b12e6252d4eb5593c4227cf456, type: 3}
   bloodExplosionPrefab: {fileID: 843515181699624692, guid: fd7b68c7c011770428ca39e405d33cb7, type: 3}
-  hp: 0
+  hp: 60
   _healthBar: {fileID: 5533421649422934782}
   enemyRenderer: {fileID: 5335906521912949624}
   hitColor: {r: 1, g: 0, b: 0, a: 1}

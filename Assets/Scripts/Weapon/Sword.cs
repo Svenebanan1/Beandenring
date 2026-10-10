@@ -10,6 +10,7 @@ public class Sword : MonoBehaviour
     private Transform _target;
 
     public EnemyHP enemy;
+    public BossHP bossHP;
 
     public float _dmg;
     [SerializeField] private float _lifeTime;
@@ -87,6 +88,20 @@ public class Sword : MonoBehaviour
         if (other.gameObject.CompareTag("TankEnemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(_dmg);
+                // Stop homing, but continue flying forward.
+                if (other.transform == _target || other.transform.IsChildOf(_target))
+                {
+                    _target = null;
+                }
+            }
+        }
+
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            bossHP = other.gameObject.GetComponent<BossHP>();
             if (enemy != null)
             {
                 enemy.TakeDamage(_dmg);

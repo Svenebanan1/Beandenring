@@ -12,6 +12,7 @@ public class Slash : MonoBehaviour
     private float scale = 4;
 
     public EnemyHP enemy;
+    public BossHP bossHP;
 
     private Vector3 _direction;
 
@@ -89,6 +90,20 @@ public class Slash : MonoBehaviour
         if (other.gameObject.CompareTag("TankEnemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(_dmg);
+                // Stop homing, but continue flying forward.
+                if (other.transform == _target || other.transform.IsChildOf(_target))
+                {
+                    _target = null;
+                }
+            }
+        }
+
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            bossHP = other.gameObject.GetComponent<BossHP>();
             if (enemy != null)
             {
                 enemy.TakeDamage(_dmg);

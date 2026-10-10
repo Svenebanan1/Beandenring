@@ -28,6 +28,9 @@ public class BossSpawn : MonoBehaviour
     [SerializeField] private float targetLensSize = 80f; // Target FOV (3D) or Ortho Size (2D)
     [SerializeField] private float lensChangeSpeed = 5f;
 
+
+    [SerializeField] private float _bossTimer;
+
     private float shakeTimer;
     private float defaultLensSize;
 
@@ -55,7 +58,7 @@ public class BossSpawn : MonoBehaviour
 
         timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-        if (time >= 360 && !bossSpawned)
+        if (time >= _bossTimer && !bossSpawned)
         {
             bossSpawned = true;
             StartCoroutine(SpawnBoss());

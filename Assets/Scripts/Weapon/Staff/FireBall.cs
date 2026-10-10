@@ -67,9 +67,6 @@ public class FireBall : MonoBehaviour
         if (other.gameObject.CompareTag("RangedEnemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
-            rangedEnemyAI = other.gameObject.GetComponent<RangedEnemyAI>();
-
-            rangedEnemyAI.SlowEffect();
 
             enemy.TakeDamage(_dmg);
             Destroy(gameObject);
@@ -78,9 +75,18 @@ public class FireBall : MonoBehaviour
         if (other.gameObject.CompareTag("TankEnemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
-            TankEnemyAI tankEnemyAI = other.gameObject.GetComponent<TankEnemyAI>();
-            tankEnemyAI.SlowEffect();
+
             enemy.TakeDamage(_dmg);
+
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            BossHP boss = other.gameObject.GetComponent<BossHP>();
+
+            boss.TakeDamage(_dmg);
+
             Destroy(gameObject);
         }
     }

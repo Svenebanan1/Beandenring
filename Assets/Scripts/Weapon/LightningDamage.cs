@@ -48,5 +48,12 @@ public class LightningDamage : MonoBehaviour
             enemy.TakeDamage(aoeDamage);
             Destroy(gameObject);
         }
+
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            BossHP boss = other.gameObject.GetComponent<BossHP>();
+            boss.TakeDamage(aoeDamage);
+            Destroy(gameObject);
+        }
     }
 }

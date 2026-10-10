@@ -11,6 +11,7 @@ TagManager:
   - RangedEnemy
   - TankEnemy
   - EnemyArms
+  - Boss
   layers:
   - Default
   - TransparentFX

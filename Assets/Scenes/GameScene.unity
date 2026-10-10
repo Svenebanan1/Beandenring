@@ -2554,10 +2554,11 @@ MonoBehaviour:
   waveManager: {fileID: 231810686}
   virtualCamera: {fileID: 1603105128}
   multiChannelPerlin: {fileID: 1603105130}
-  targetShakeIntensity: 40
+  targetShakeIntensity: 30
   shakeDuration: 4
-  targetLensSize: 120
-  lensChangeSpeed: 10
+  targetLensSize: 105
+  lensChangeSpeed: 5
+  _bossTimer: 5
 --- !u!1 &1019087011
 GameObject:
   m_ObjectHideFlags: 0
@@ -2987,7 +2988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 30.11, y: 925}
+  m_AnchoredPosition: {x: 30.110107, y: 925}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1198387767
@@ -5670,6 +5671,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1640462653}
+    - target: {fileID: 7440142595553111645, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: m_Radius
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8562544109547945063, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
       propertyPath: _xpBar
       value: 

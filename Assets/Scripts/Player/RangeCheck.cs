@@ -72,6 +72,15 @@ public class RangeCheck : MonoBehaviour
             }
             Debug.Log("Tank Enemy in range");
         }
+
+        if (other.CompareTag("Boss"))
+        {
+            if (!_enemiesInRange.Contains(other.transform))
+            {
+                _enemiesInRange.Add(other.transform);
+            }
+            Debug.Log("Tank Enemy in range");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -91,6 +100,13 @@ public class RangeCheck : MonoBehaviour
         }
 
         if (other.CompareTag("TankEnemy"))
+        {
+            _enemiesInRange.Remove(other.transform);
+
+            Debug.Log("Enemy out of range");
+        }
+
+        if (other.CompareTag("Boss"))
         {
             _enemiesInRange.Remove(other.transform);
 

@@ -1,7 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using TMPro;
-using System.Runtime.CompilerServices;
 using System.Collections;
 
 public class EnemyHP : MonoBehaviour
@@ -10,6 +7,9 @@ public class EnemyHP : MonoBehaviour
 
     [SerializeField] private GameObject _xpShard;
     [SerializeField] private GameObject bloodExplosionPrefab;
+
+    [SerializeField] private float _xpDropChance = 0.75f;
+    [SerializeField] private int _maxXpOnField = 10;
 
     private float bloodLifetime;
 
@@ -24,29 +24,43 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] private float flashTime = 0.08f;
 
     private Color normalColor;
+    private Coroutine _flashRoutine;
+    private bool _dead;
 
     private void Start()
     {
         waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
-        hp = _enemyVariables.maxHp * waveManager.enemyHPMultiplier; 
+        hp = _enemyVariables.maxHp * waveManager.enemyHPMultiplier;
         bloodLifetime = 1f;
         normalColor = enemyRenderer.material.color;
     }
 
     public void TakeDamage(float dmg)
     {
+        if (_dead) return; // prevents double kills / double drops from simultaneous hits
+
         hp -= dmg;
         _healthBar.SetHealth(hp, _enemyVariables.maxHp);
-        StartCoroutine(HitFlash());
+
         if (hp <= 0)
         {
+            _dead = true;
+
             GameObject blood = Instantiate(bloodExplosionPrefab, transform.position, Quaternion.identity);
             Destroy(blood, bloodLifetime);
-            Instantiate(_xpShard, transform.position, Quaternion.identity);
-            waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
+
+            if (Random.value < _xpDropChance && XP.ActiveCount < _maxXpOnField)
+            {
+                Instantiate(_xpShard, transform.position, Quaternion.identity);
+            }
+
             waveManager.kills += 1;
             Destroy(gameObject);
+            return;
         }
+
+        if (_flashRoutine != null) StopCoroutine(_flashRoutine);
+        _flashRoutine = StartCoroutine(HitFlash());
     }
 
     private IEnumerator HitFlash()
@@ -56,5 +70,6 @@ public class EnemyHP : MonoBehaviour
         yield return new WaitForSeconds(flashTime);
 
         enemyRenderer.material.color = normalColor;
+        _flashRoutine = null;
     }
 }

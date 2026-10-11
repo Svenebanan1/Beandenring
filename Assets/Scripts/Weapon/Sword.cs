@@ -54,63 +54,23 @@ public class Sword : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        bool hit = false;
+
+        if (other.CompareTag("Enemy") || other.CompareTag("RangedEnemy") || other.CompareTag("TankEnemy"))
         {
-            enemy = other.gameObject.GetComponent<EnemyHP>();
-
-            if (enemy != null)
-            {
-                enemy.TakeDamage(_dmg);
-
-                // Stop homing, but continue flying forward.
-                if (other.transform == _target || other.transform.IsChildOf(_target))
-                {
-                    _target = null;
-                }
-            }
-
+            var enemy = other.GetComponent<EnemyHP>();
+            if (enemy != null) { enemy.TakeDamage(_dmg); hit = true; }
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            var boss = other.GetComponent<BossHP>();
+            if (boss != null) { boss.TakeDamage(_dmg); hit = true; }
         }
 
-        if (other.gameObject.CompareTag("RangedEnemy"))
+        if (hit && _target != null &&
+            (other.transform == _target || other.transform.IsChildOf(_target) || _target.IsChildOf(other.transform)))
         {
-            enemy = other.gameObject.GetComponent<EnemyHP>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(_dmg);
-                // Stop homing, but continue flying forward.
-                if (other.transform == _target || other.transform.IsChildOf(_target))
-                {
-                    _target = null;
-                }
-            }
-        }
-
-        if (other.gameObject.CompareTag("TankEnemy"))
-        {
-            enemy = other.gameObject.GetComponent<EnemyHP>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(_dmg);
-                // Stop homing, but continue flying forward.
-                if (other.transform == _target || other.transform.IsChildOf(_target))
-                {
-                    _target = null;
-                }
-            }
-        }
-
-        if (other.gameObject.CompareTag("Boss"))
-        {
-            bossHP = other.gameObject.GetComponent<BossHP>();
-            if (enemy != null)
-            {
-                enemy.TakeDamage(_dmg);
-                // Stop homing, but continue flying forward.
-                if (other.transform == _target || other.transform.IsChildOf(_target))
-                {
-                    _target = null;
-                }
-            }
+            _target = null;
         }
     }
 }

@@ -24,7 +24,34 @@ public class AOE : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemy = other.gameObject.GetComponent<EnemyHP>();
+
             enemy.TakeDamage(aoeDamage);
+
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("RangedEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+
+            enemy.TakeDamage(aoeDamage);
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("TankEnemy"))
+        {
+            enemy = other.gameObject.GetComponent<EnemyHP>();
+
+            enemy.TakeDamage(aoeDamage);
+
+            Destroy(gameObject);
+        }
+
+        if (other.gameObject.CompareTag("Boss"))
+        {
+            BossHP boss = other.gameObject.GetComponent<BossHP>();
+
+            boss.TakeDamage(aoeDamage);
 
             Destroy(gameObject);
         }

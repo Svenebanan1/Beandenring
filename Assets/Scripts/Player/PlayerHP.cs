@@ -7,8 +7,8 @@ using static System.Net.Mime.MediaTypeNames;
 public class PlayerHP : MonoBehaviour
 {
     [SerializeField] private PlayerValues _playerValues;
-    [SerializeField] private float maxHP;
-    [SerializeField] private float currentHP;
+    public float maxHP;
+    public float currentHP;
     [SerializeField] private float _timeBeforeRegen;
     [SerializeField] private bool _canRegen;
 

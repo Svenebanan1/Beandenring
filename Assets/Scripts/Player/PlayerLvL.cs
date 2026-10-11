@@ -10,6 +10,7 @@ public class PlayerLvL : MonoBehaviour
     [SerializeField] private float _maxXP;
     [SerializeField] private float _currentXP;
     [SerializeField] private int _currentLevel;
+    [SerializeField] private PlayerHP _playerHP;
 
     [SerializeField] private Image _xpBar;
 
@@ -68,6 +69,9 @@ public class PlayerLvL : MonoBehaviour
         _currentLevel++;
         _maxXP += 5;
         _maxXP *= 1.02f;
+
+        _playerHP.maxHP += 5;
+        _playerHP.currentHP = _playerHP.maxHP; // Ensure current HP is set to max after healing
     }
 
     public void GainedXP()
@@ -84,7 +88,7 @@ public class PlayerLvL : MonoBehaviour
             StartCoroutine(upgrading.Upgrading());
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            if (_currentLevel == 5 || _currentLevel == 10 || _currentLevel == 20)
+            if (_currentLevel == 7 || _currentLevel == 20 || _currentLevel == 30)
             {
                 unlockPanel.SetActive(true);
                 Time.timeScale = 0f;

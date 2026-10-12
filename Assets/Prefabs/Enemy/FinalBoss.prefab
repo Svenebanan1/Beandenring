@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 6233809565338883735}
   - component: {fileID: 1364850791114171862}
   - component: {fileID: 6775226328830932900}
+  - component: {fileID: 9183358386408308768}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Boss
@@ -210,8 +211,11 @@ MonoBehaviour:
   healthBarFill: {fileID: 2861978216917295909}
   animator: {fileID: 7012600474309069313}
   enemyRenderer: {fileID: 9189561072664056312}
-  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitColor: {r: 1, g: 0, b: 0, a: 0.34117648}
   flashTime: 0.08
+  bossAttacks: {fileID: 9183358386408308768}
+  sc1: {fileID: 1364850791114171862}
+  sc2: {fileID: 6775226328830932900}
 --- !u!135 &1364850791114171862
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -254,6 +258,39 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 6
   m_Center: {x: -0.0000000032596288, y: 0.0000000032596288, z: 0.000023676546}
+--- !u!114 &9183358386408308768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941340033122125889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4024556745bbe44282b5eaf881421d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BossAttacks
+  animator1: {fileID: 7012600474309069313}
+  animator2: {fileID: 4302673408627803700}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 128
+  player: {fileID: 0}
+  _shadowStrikePrefab: {fileID: 2686582541934831433, guid: 729bd98ae0f6d18479fdca7090bcb159, type: 3}
+  enemyRenderer: {fileID: 9189561072664056312}
+  holyLight: {r: 0.4481132, g: 0.6581232, b: 1, a: 1}
+  holyDark: {r: 0.6509434, g: 0, b: 0.58319813, a: 1}
+  flashTime: 0.01
+  teleportPoints:
+  - {fileID: 8788489236479878230, guid: 12f448cbfa9d37b468b1a7f57a7d7a40, type: 3}
+  - {fileID: 8235846603427715898, guid: bb32d92d8376da947882efa8a6eba60b, type: 3}
+  - {fileID: 2947356883033337456, guid: 569db28db3e3bd944a34deeb260abf0b, type: 3}
+  - {fileID: 3201742954097041630, guid: 9856d308ee02ad94cafff861e55d8914, type: 3}
+  - {fileID: 5217923100979145612, guid: 8d7afb697577b724a92873f84aa4eab1, type: 3}
+  parent: {fileID: 0}
 --- !u!1 &6253139687467673500
 GameObject:
   m_ObjectHideFlags: 0

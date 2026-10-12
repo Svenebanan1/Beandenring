@@ -18,14 +18,35 @@ public class BossHP : MonoBehaviour
     private Color normalColor;
     private bool isDead;
 
+    public BossAttacks bossAttacks;
+
+    private float time = 5f; // Time in seconds before the boss starts attacking
+
+    [SerializeField] SphereCollider sc1;
+    [SerializeField] SphereCollider sc2;
+
     void Start()
     {
         currentHealth = maxHealth;
         normalColor = enemyRenderer.material.color;
+
+        bossAttacks.enabled = false; // Disable attacks at the start
+        sc1.enabled = false; // Disable collider at the start
+        sc2.enabled = false; // Disable collider at the start
+
     }
 
     void Update()
     {
+        time -= Time.deltaTime;
+
+        if(time <= 0f && !isDead)
+        {
+            bossAttacks.enabled = true; // Enable attacks after the time has passed
+            sc1.enabled = true; // Enable collider after the time has passed
+            sc2.enabled = true; // Enable collider after the time has passed
+        }
+
         healthBarFill.fillAmount = currentHealth / maxHealth;
     }
 
@@ -56,4 +77,5 @@ public class BossHP : MonoBehaviour
         yield return new WaitForSeconds(flashTime);
         enemyRenderer.material.color = normalColor;
     }
+
 }

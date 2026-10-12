@@ -11,6 +11,8 @@ public class BossSpawn : MonoBehaviour
     public float time;
 
     public GameObject bossPrefab;
+    public List<GameObject> Spawns; // List to hold multiple boss prefabs
+
 
     private bool bossSpawned = false;
 
@@ -31,6 +33,7 @@ public class BossSpawn : MonoBehaviour
 
     [SerializeField] private float _bossTimer;
 
+    [SerializeField] private RangeCheck rangeCheck;
 
     private float shakeTimer;
     private float defaultLensSize;
@@ -72,6 +75,18 @@ public class BossSpawn : MonoBehaviour
 
     IEnumerator SpawnBoss()
     {
+        foreach (GameObject spawn in Spawns)
+        {
+            Instantiate(spawn, spawn.transform.position, Quaternion.identity);
+        }
+
+        // Double the size of the capsule collider
+        if (rangeCheck != null && rangeCheck._capsuleCollider != null)
+        {
+            rangeCheck._capsuleCollider.radius *= 2f;
+            rangeCheck._capsuleCollider.height *= 2f;
+        }
+
         // Trigger camera shake and zoom
         TriggerEffects();
 

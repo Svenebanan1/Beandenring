@@ -12,7 +12,12 @@ public class RangeCheck : MonoBehaviour
     // Property to check if there are any enemies in range
     public bool isInRange => _enemiesInRange.Count > 0;
 
-    [SerializeField] private CapsuleCollider _capsuleCollider;
+    public CapsuleCollider _capsuleCollider;
+
+    private void Start()
+    {
+        _capsuleCollider.radius = _weaponManager.range;
+    }
 
     // Returns the nearest enemy in range, or null if there are no enemies in range
     public Transform GetNearestEnemy()
@@ -38,10 +43,6 @@ public class RangeCheck : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        _capsuleCollider.radius = _weaponManager.range;
-    }
 
     private void OnTriggerEnter(Collider other)
     {

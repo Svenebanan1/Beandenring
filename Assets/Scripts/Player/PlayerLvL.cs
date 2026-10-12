@@ -70,7 +70,7 @@ public class PlayerLvL : MonoBehaviour
         _maxXP += 5;
         _maxXP *= 1.02f;
 
-        _playerHP.maxHP *= 1.07f;
+        _playerHP.maxHP += (10 * 1.01f);
         _playerHP.currentHP = _playerHP.maxHP; // Ensure current HP is set to max after healing
     }
 

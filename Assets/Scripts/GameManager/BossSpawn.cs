@@ -31,11 +31,13 @@ public class BossSpawn : MonoBehaviour
 
     [SerializeField] private float _bossTimer;
 
+
     private float shakeTimer;
     private float defaultLensSize;
 
     void Start()
     {
+
         time = 0f;
         if (virtualCamera == null)
         {

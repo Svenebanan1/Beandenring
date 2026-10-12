@@ -23,7 +23,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float scaleFactor = 0.85f;
     [SerializeField] private float maxScaleTime = 45f;
     [SerializeField] private float scaletime;
-    [SerializeField] private float scaleAmount = 0f;
 
     public float enemyHPMultiplier;
     public float enemyDMGMultiplier;
@@ -51,10 +50,13 @@ public class WaveManager : MonoBehaviour
 
         if (scaletime <= 0f)
         {
+            if (spawninterval <= 0.67f)
+            {
+                scaleFactor = 1f;
+            }
             spawninterval *= scaleFactor;
             scaletime = maxScaleTime *= 0.85f;
             ScaleEnemy();
-            scaleAmount++;
         }
 
         if (timer >= spawninterval)
@@ -105,9 +107,8 @@ public class WaveManager : MonoBehaviour
 
     void ScaleEnemy()
     {
-        enemyHPMultiplier *= 1.15f;
-        enemyDMGMultiplier *= 1.2f;
-        if (scaleAmount == 2 || scaleAmount == 4  || scaleAmount == 5 ||scaleAmount == 6 || scaleAmount == 7 || scaleAmount == 8 || scaleAmount == 9 || scaleAmount == 10)
-            enemyAmount += 1f;
+        enemyHPMultiplier *= 1.05f;
+        enemyDMGMultiplier *= 1.1f;
+        enemyAmount += 1f;
     }
 }

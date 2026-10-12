@@ -8,8 +8,8 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] private GameObject _xpShard;
     [SerializeField] private GameObject bloodExplosionPrefab;
 
-    [SerializeField] private float _xpDropChance = 0.75f;
-    [SerializeField] private int _maxXpOnField = 10;
+    private float _xpDropChance = 0.95f;
+    private int _maxXpOnField = 25;
 
     private float bloodLifetime;
 

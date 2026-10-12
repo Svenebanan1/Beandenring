@@ -142,6 +142,8 @@ GameObject:
   - component: {fileID: 1525561410210279504}
   - component: {fileID: 7012600474309069313}
   - component: {fileID: 6233809565338883735}
+  - component: {fileID: 1364850791114171862}
+  - component: {fileID: 6775226328830932900}
   m_Layer: 0
   m_Name: FinalBoss
   m_TagString: Boss
@@ -203,13 +205,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1448fc05c1e275d4d80f7b6609f4d489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHP
-  maxHealth: 1000
+  maxHealth: 7500
   currentHealth: 0
   healthBarFill: {fileID: 2861978216917295909}
   animator: {fileID: 7012600474309069313}
   enemyRenderer: {fileID: 9189561072664056312}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashTime: 0.08
+--- !u!135 &1364850791114171862
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941340033122125889}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 6144
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 6
+  m_Center: {x: -0.0000000032596288, y: 0.0000000032596288, z: 0.000023676546}
+--- !u!135 &6775226328830932900
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941340033122125889}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1536
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 6
+  m_Center: {x: -0.0000000032596288, y: 0.0000000032596288, z: 0.000023676546}
 --- !u!1 &6253139687467673500
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,12 +995,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 515276c83fdac9346af6979bd304221f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5155263273909654637}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 515276c83fdac9346af6979bd304221f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4507418886252550327}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 515276c83fdac9346af6979bd304221f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7967027588450693405}
   m_SourcePrefab: {fileID: 100100000, guid: 515276c83fdac9346af6979bd304221f, type: 3}
 --- !u!1 &7243790872243449901 stripped
 GameObject:
@@ -975,48 +1013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d4512100911f4448ca47eab68288b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LookAtPlayer
---- !u!135 &4507418886252550327
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7243790872243449901}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 1536
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.010023675
-  m_Center: {x: -0.0000000032596288, y: 0.0000000032596288, z: 0.000023676546}
---- !u!135 &7967027588450693405
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7243790872243449901}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 6144
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.010023675
-  m_Center: {x: -0.0000000032596288, y: 0.0000000032596288, z: 0.000023676546}
 --- !u!4 &8056040091765303959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 515276c83fdac9346af6979bd304221f, type: 3}

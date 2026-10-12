@@ -7,6 +7,8 @@ public class XP : MonoBehaviour
     private Transform _mainCamera;
     private PlayerLvL _playerLvL;
 
+    private float lifetime = 10f;
+
     private void OnEnable()
     {
         ActiveCount++;
@@ -20,6 +22,7 @@ public class XP : MonoBehaviour
     void Start()
     {
         _mainCamera = Camera.main.transform;
+        Destroy(gameObject, lifetime);
     }
 
     void Update()

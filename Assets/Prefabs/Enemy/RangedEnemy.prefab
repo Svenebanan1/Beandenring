@@ -234,7 +234,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 13
+  m_Speed: 15
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 1500
@@ -314,6 +314,8 @@ MonoBehaviour:
     m_Bits: 128
   _enemyVariables: {fileID: 11400000, guid: eaf031ac321b35e41a3f5c5d61799dde, type: 2}
   _redCircle: {fileID: 6188555937460796802, guid: 01fb586c24cc5264ab5419f3fb7de175, type: 3}
+  attackDuration: 0.5
+  attackCooldown: 1.5
 --- !u!114 &8127612254376027526
 MonoBehaviour:
   m_ObjectHideFlags: 0

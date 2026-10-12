@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVariables
   speed: 9
   hp: 0
-  maxHp: 30
+  maxHp: 18
   dmg: 12

@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -15,6 +17,8 @@ public class PlayerHP : MonoBehaviour
     public UnityEngine.UI.Image healthImage;
 
     [SerializeField] private TextMeshProUGUI text;
+
+    [SerializeField] private Animator _animator;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,9 +44,9 @@ public class PlayerHP : MonoBehaviour
             0.5f * Time.deltaTime
         );
 
-        text.text = $"{currentHP} / {maxHP}";
+        text.text = $"{(int)currentHP} / {(int)maxHP}";
 
-        if(_timeBeforeRegen <= 0 && currentHP != maxHP)
+        if (_timeBeforeRegen <= 0 && currentHP != maxHP)
         {
             _canRegen = true;
             if(_canRegen)
@@ -58,6 +62,19 @@ public class PlayerHP : MonoBehaviour
         currentHP -= dmg;
         _timeBeforeRegen = 4f;
         _canRegen = false;
+
+        if (currentHP <= 0)
+        {
+           StartCoroutine(Die());
+        }
+    }
+
+    public IEnumerator Die()
+    {
+        _animator.SetTrigger("Die");
+        yield return new WaitForSeconds(2f);
+        
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

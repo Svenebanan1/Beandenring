@@ -12,7 +12,7 @@ public class Ice : MonoBehaviour
     public EnemyHP enemy;
     public EnemyAI enemyAI;
     public RangedEnemyAI rangedEnemyAI;
-    public BossHP boss;
+
 
     public float _dmg;
     [SerializeField] private float _lifeTime;
@@ -89,7 +89,7 @@ public class Ice : MonoBehaviour
 
         if (other.gameObject.CompareTag("Boss"))
         {
-            boss = other.gameObject.GetComponent<BossHP>();
+            BossHP boss = other.gameObject.GetComponent<BossHP>();
             boss.TakeDamage(_dmg);
             Destroy(gameObject);
         }

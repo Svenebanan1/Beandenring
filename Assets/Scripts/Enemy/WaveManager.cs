@@ -1,115 +1,199 @@
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    [Header("Enemies")]
     public GameObject[] enemyprefab;
-
-    [Tooltip("Seconds into the game when each prefab can start spawning. Same order/length as enemyprefab. 90 = 1:30, 180 = 3:00")]
     [SerializeField] private float[] unlockTimes;
-
     public Transform player;
 
-    [SerializeField] private float spawninterval = 2f;
+    [Header("Spawning")]
+    [SerializeField] private float spawninterval = 3f;
     [SerializeField] private float spawnradius = 15f;
 
+    [SerializeField] private int startingEnemyCap = 15;
+    [SerializeField] private int maximumEnemyCap = 25;
+
+    private int currentEnemyCap;
+
+    private const float minSpawnInterval = 0.5f;
+    private const int maxEnemiesPerSpawn = 20;
+
+    private readonly List<GameObject> aliveEnemies = new();
+
+    [Header("Timers")]
     private float timer = 0f;
     private float gameTime = 0f;
 
-    public TextMeshProUGUI killCount;
-    public int kills;
-
-    [SerializeField] private float scaleFactor = 0.85f;
     [SerializeField] private float maxScaleTime = 45f;
     [SerializeField] private float scaletime;
 
-    public float enemyHPMultiplier;
-    public float enemyDMGMultiplier;
+    [SerializeField, Range(0.1f, 1f)]
+    private float scaleFactor = 0.85f;
+
+    [Header("Enemy Scaling")]
+    public float enemyHPMultiplier = 1f;
+    public float enemyDMGMultiplier = 1f;
     public float enemyAmount = 1f;
+
+    [Header("Other")]
+    public TextMeshProUGUI killCount;
+    public int kills;
 
     [SerializeField, Range(0f, 0.8f)]
     private float rareEnemyChance = 0.2f;
 
-    private readonly List<GameObject> _available = new List<GameObject>();
+    private readonly List<GameObject> _available = new();
 
     private void Start()
     {
         enemyHPMultiplier = 1f;
         enemyDMGMultiplier = 1f;
+
+        maxScaleTime = Mathf.Max(1f, maxScaleTime);
         scaletime = maxScaleTime;
+
+        spawninterval = Mathf.Max(minSpawnInterval, spawninterval);
+
+        currentEnemyCap = Mathf.Clamp(
+            startingEnemyCap, 1, maximumEnemyCap
+        );
     }
 
-    void Update()
+    private void Update()
     {
         if (player == null) return;
 
-        gameTime += Time.deltaTime;
-        timer += Time.deltaTime;
-        scaletime -= Time.deltaTime;
+        float delta = Time.deltaTime;
 
+        gameTime += delta;
+        timer += delta;
+        scaletime -= delta;
+
+        // Remove references to destroyed enemies
+        aliveEnemies.RemoveAll(enemy => enemy == null);
+
+        // Scale difficulty at fixed intervals
         if (scaletime <= 0f)
         {
-            if (spawninterval <= 0.67f)
-            {
-                scaleFactor = 1f;
-            }
-            spawninterval *= scaleFactor;
-            scaletime = maxScaleTime *= 0.85f;
             ScaleEnemy();
+            scaletime += maxScaleTime;
         }
 
-        if (timer >= spawninterval)
+        // Spawn when timer expires OR arena is empty
+        if (timer >= spawninterval || aliveEnemies.Count == 0)
         {
             SpawnEnemy();
             timer = 0f;
         }
 
-        killCount.text = ": " + kills;
+        if (killCount != null)
+            killCount.text = ": " + kills;
     }
 
-    bool IsUnlocked(int index)
+    private bool IsUnlocked(int index)
     {
-        // Prefabs with no unlock time set are available from the start
-        if (unlockTimes == null || index >= unlockTimes.Length) return true;
+        if (unlockTimes == null || index >= unlockTimes.Length)
+            return true;
+
         return gameTime >= unlockTimes[index];
     }
 
-    GameObject PickEnemy()
+    private GameObject PickEnemy()
     {
+        if (enemyprefab == null || enemyprefab.Length == 0)
+            return null;
+
         int last = enemyprefab.Length - 1;
 
-        // Rare enemy (last prefab), only if it has unlocked
-        if (last > 0 && IsUnlocked(last) && Random.value < rareEnemyChance)
+        if (last > 0 && IsUnlocked(last)
+            && enemyprefab[last] != null
+            && Random.value < rareEnemyChance)
+        {
             return enemyprefab[last];
+        }
 
-        // Common enemies (all except the last), only the unlocked ones
         _available.Clear();
-        for (int i = 0; i < last; i++)
-            if (IsUnlocked(i)) _available.Add(enemyprefab[i]);
 
-        if (_available.Count == 0) return enemyprefab[0]; // safety fallback
-        return _available[Random.Range(0, _available.Count)];
+        int commonCount = last == 0 ? 1 : last;
+
+        for (int i = 0; i < commonCount; i++)
+        {
+            if (enemyprefab[i] != null && IsUnlocked(i))
+                _available.Add(enemyprefab[i]);
+        }
+
+        if (_available.Count > 0)
+        {
+            return _available[
+                Random.Range(0, _available.Count)
+            ];
+        }
+
+        return IsUnlocked(last) ? enemyprefab[last] : null;
     }
 
-    void SpawnEnemy()
+    private void SpawnEnemy()
     {
-        for (int i = 0; i < enemyAmount; i++)
+        // Never exceed the current enemy cap
+        int remainingSlots = currentEnemyCap - aliveEnemies.Count;
+
+        if (remainingSlots <= 0) return;
+
+        int spawnCount = Mathf.Min(
+            Mathf.RoundToInt(enemyAmount),
+            remainingSlots
+        );
+
+        for (int i = 0; i < spawnCount; i++)
         {
-            GameObject enemy = PickEnemy();
+            GameObject enemyPrefab = PickEnemy();
 
-            Vector3 randomDirection = Random.insideUnitSphere.normalized;
-            randomDirection.y = 0f;
+            if (enemyPrefab == null) return;
 
-            Vector3 spawnPos = player.position + randomDirection * spawnradius;
-            Instantiate(enemy, spawnPos, Quaternion.identity);
+            Vector2 direction = Random.insideUnitCircle.normalized;
+
+            Vector3 spawnPos = player.position + new Vector3(
+                direction.x * spawnradius,
+                0f,
+                direction.y * spawnradius
+            );
+
+            GameObject spawnedEnemy = Instantiate(
+                enemyPrefab,
+                spawnPos,
+                Quaternion.identity
+            );
+
+            aliveEnemies.Add(spawnedEnemy);
         }
     }
 
-    void ScaleEnemy()
+    private void ScaleEnemy()
     {
-        enemyHPMultiplier *= 1.05f;
+        // Increase enemy stats
+        enemyHPMultiplier *= 1.1f;
         enemyDMGMultiplier *= 1.1f;
-        enemyAmount += 1f;
+
+        // Gradually increase enemies per spawn
+        enemyAmount = Mathf.Min(
+            enemyAmount + 1f,
+            maxEnemiesPerSpawn
+        );
+
+        // Gradually increase maximum alive enemies
+        currentEnemyCap = Mathf.Min(
+            currentEnemyCap + 1,
+            maximumEnemyCap
+        );
+
+        // Reduce spawn interval, never below 0.5 seconds
+        spawninterval = Mathf.Max(
+            minSpawnInterval,
+            spawninterval * scaleFactor
+        );
     }
 }

@@ -27,8 +27,6 @@ public class EnemyHP : MonoBehaviour
     private Coroutine _flashRoutine;
     private bool _dead;
 
-    private int highestKills;
-    private int totalKills;
 
     private void Start()
     {
@@ -37,18 +35,9 @@ public class EnemyHP : MonoBehaviour
         bloodLifetime = 1f;
         normalColor = enemyRenderer.material.color;
 
-        highestKills = PlayerPrefs.GetInt("Highest Kills", 0);
-        totalKills = PlayerPrefs.GetInt("Total Kills", 0);
+
     }
 
-    private void Update()
-    {
-
-        if(highestKills < waveManager.kills)
-        {
-            PlayerPrefs.SetInt("Highest Kills", waveManager.kills);
-        }
-    }
 
     public void TakeDamage(float dmg)
     {
@@ -59,6 +48,24 @@ public class EnemyHP : MonoBehaviour
 
         if (hp <= 0)
         {
+            waveManager.kills++;
+
+            // Get latest total and increase it
+            int totalKills = PlayerPrefs.GetInt("Total Kills", 0);
+            totalKills++;
+
+            PlayerPrefs.SetInt("Total Kills", totalKills);
+
+            // Update highest kills if current run beats the record
+            int highestKills = PlayerPrefs.GetInt("Highest Kills", 0);
+
+            if (waveManager.kills > highestKills)
+            {
+                PlayerPrefs.SetInt("Highest Kills", waveManager.kills);
+            }
+
+            PlayerPrefs.Save();
+
             _dead = true;
 
             GameObject blood = Instantiate(bloodExplosionPrefab, transform.position, Quaternion.identity);
@@ -69,11 +76,6 @@ public class EnemyHP : MonoBehaviour
                 Instantiate(_xpShard, transform.position, Quaternion.identity);
             }
 
-            totalKills++;
-            PlayerPrefs.SetInt("Total Kills", totalKills);
-            PlayerPrefs.Save();
-
-            waveManager.kills += 1;
             Destroy(gameObject);
             return;
         }

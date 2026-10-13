@@ -687,8 +687,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: FinalBoss
       objectReference: {fileID: 0}
+    - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6253139687467673500, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183358386408308768, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: animator1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183358386408308768, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

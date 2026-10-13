@@ -4,7 +4,7 @@ using UnityEngine;
 public class MoveTowardsPlayer : MonoBehaviour
 {
     private Transform player;
-    [SerializeField] private float moveSpeed = 10f;
+    private float moveSpeed = 25f;
     [SerializeField] private bool inRange;
     [SerializeField] float range = 7;
        

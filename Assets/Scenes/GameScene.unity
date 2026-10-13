@@ -1031,14 +1031,16 @@ MonoBehaviour:
   player: {fileID: 167135298}
   spawninterval: 3
   spawnradius: 35
-  killCount: {fileID: 251760172}
-  kills: 0
+  startingEnemyCap: 15
+  maximumEnemyCap: 25
+  maxScaleTime: 30
+  scaletime: 30
   scaleFactor: 0.85
-  maxScaleTime: 45
-  scaletime: 45
   enemyHPMultiplier: 0
   enemyDMGMultiplier: 0
-  enemyAmount: 1
+  enemyAmount: 2
+  killCount: {fileID: 251760172}
+  kills: 0
   rareEnemyChance: 0.154
 --- !u!4 &231810688
 Transform:
@@ -2790,7 +2792,7 @@ MonoBehaviour:
   shakeDuration: 4
   targetLensSize: 105
   lensChangeSpeed: 5
-  _bossTimer: 450
+  _bossTimer: 1
   rangeCheck: {fileID: 267398530}
 --- !u!1 &1019087011
 GameObject:

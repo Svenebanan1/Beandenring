@@ -1,197 +1,250 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BossAttacks : MonoBehaviour
 {
-    private int randomAttack;
-    private bool canAttack;
+    private bool canAttack = true;
 
     public Animator animator1;
     public Animator animator2;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
-    [SerializeField] Transform player;
+    [SerializeField] private Transform player;
 
+    [Header("Shadow Strike")]
     [SerializeField] private GameObject _shadowStrikePrefab;
-
     [SerializeField] private Renderer enemyRenderer;
-
     [SerializeField] private Color holyDark;
     [SerializeField] private float flashTime = 0.1f;
 
     private Color normalColor;
+    private Material enemyMaterial;
 
+    [Header("Teleport")]
     [SerializeField] private List<Transform> teleportPoints;
-
     [SerializeField] private GameObject parent;
 
     private int lastTeleportIndex = -1;
 
-
+    [Header("Wing Attack")]
     [SerializeField] private GameObject wingAttackPrefab;
-
     [SerializeField] private GameObject firePoint;
 
+    [Header("Holy Light")]
     [SerializeField] private GameObject _redCircle;
-
     [SerializeField] private float minSpawnRange = 2f;
     [SerializeField] private float maxSpawnRange = 8f;
     [SerializeField] private float groundOffset = 0.05f;
 
+    [Header("Cooldown")]
+    [SerializeField] private float minCooldown = 0f;
+    [SerializeField] private float maxCooldown = 2.5f;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Start()
     {
-        canAttack = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(canAttack)
+        if (player == null)
         {
-            randomAttack = (int)Random.Range(1,11);
-            Debug.Log("Random Attack: " + randomAttack);
+            GameObject playerObject =
+                GameObject.FindGameObjectWithTag("Player");
 
-            if (randomAttack >= 1 && randomAttack <= 3)
-            {
-                StartCoroutine(HolyLight());
-                // Perform Attack 1
-                Debug.Log("Performing Attack 1");
-            }
-            else if (randomAttack >= 4 && randomAttack <= 6)
-            {
-                StartCoroutine(WingAttack());
-                // Perform Attack 2
-                Debug.Log("Performing Attack 2");
-            }
-            else if (randomAttack >= 7 && randomAttack <= 9)
-            {
-
-                StartCoroutine(ShadowStrike());
-                // Perform Attack 3
-                Debug.Log("Performing Attack 3");
-            }
-            else
-            {
-                StartCoroutine(Teleport());
-            }
+            if (playerObject != null)
+                player = playerObject.transform;
         }
 
-
-    
+        enemyMaterial = enemyRenderer.material;
+        normalColor = enemyMaterial.color;
     }
 
-    IEnumerator HolyLight()
+    private void Update()
+    {
+        if (!canAttack || player == null) return;
+
+        StartCoroutine(AttackSequence());
+    }
+
+    // Controls all boss attacks
+    private IEnumerator AttackSequence()
     {
         canAttack = false;
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        int randomAttack = Random.Range(0, 8);
 
+        Debug.Log("Random Attack: " + randomAttack);
+
+        // Decide which attacks should run
+        bool useHolyLight =
+            randomAttack == 0 ||
+            randomAttack == 3 ||
+            randomAttack == 4 ||
+            randomAttack == 6;
+
+        bool useWingAttack =
+            randomAttack == 1 ||
+            randomAttack == 3 ||
+            randomAttack == 5 ||
+            randomAttack == 6;
+
+        bool useShadowStrike =
+            randomAttack == 2 ||
+            randomAttack == 4 ||
+            randomAttack == 5 ||
+            randomAttack == 6;
+
+        Coroutine holy = null;
+        Coroutine wing = null;
+        Coroutine shadow = null;
+
+        // Start selected attacks simultaneously
+        if (useHolyLight)
+            holy = StartCoroutine(HolyLight());
+
+        if (useWingAttack)
+            wing = StartCoroutine(WingAttack());
+
+        if (useShadowStrike)
+            shadow = StartCoroutine(ShadowStrike());
+
+        // Teleport is a separate action
+        if (randomAttack == 7)
+            Teleport();
+
+        // Wait until ALL selected attacks finish
+        if (holy != null)
+            yield return holy;
+
+        if (wing != null)
+            yield return wing;
+
+        if (shadow != null)
+            yield return shadow;
+
+        // Cooldown before the next attack sequence
+        yield return new WaitForSeconds(
+            Random.Range(minCooldown, maxCooldown)
+        );
+
+        canAttack = true;
+    }
+
+    // HOLY LIGHT
+    private IEnumerator HolyLight()
+    {
         for (int i = 0; i < 5; i++)
         {
-            // Random position around the player
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            float randomDistance = Random.Range(minSpawnRange, maxSpawnRange);
+            if (player == null) yield break;
 
-            Vector3 spawnPosition = player.position + new Vector3(randomDirection.x * randomDistance, 0f, randomDirection.y * randomDistance);
+            Vector2 randomDirection =
+                Random.insideUnitCircle.normalized;
 
-            // Start raycast above the intended spawn position
-            Vector3 rayOrigin = spawnPosition + Vector3.up * 10f;
+            float randomDistance =
+                Random.Range(minSpawnRange, maxSpawnRange);
 
-            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f, whatIsGround))
+            Vector3 spawnPosition = player.position +
+                new Vector3(
+                    randomDirection.x * randomDistance,
+                    0f,
+                    randomDirection.y * randomDistance
+                );
+
+            Vector3 rayOrigin =
+                spawnPosition + Vector3.up * 10f;
+
+            if (Physics.Raycast(
+                rayOrigin,
+                Vector3.down,
+                out RaycastHit hit,
+                100f,
+                whatIsGround))
             {
-                // Spawn directly on the ground
-                Vector3 groundPosition = hit.point + Vector3.up * groundOffset;
+                Vector3 groundPosition =
+                    hit.point + Vector3.up * groundOffset;
 
-                Instantiate(_redCircle, groundPosition, Quaternion.identity);
+                Instantiate(
+                    _redCircle,
+                    groundPosition,
+                    Quaternion.identity
+                );
             }
 
-            yield return new WaitForSeconds(0.18f); // Wait for 0.2 seconds before spawning the next Shadow Strike
+            yield return new WaitForSeconds(0.18f);
         }
-      
-        float randomCount = Random.Range(0f, 5f);
-        yield return new WaitForSeconds(randomCount);
-
-        canAttack = true;
     }
 
-    IEnumerator WingAttack()
+    // WING ATTACK
+    private IEnumerator WingAttack()
     {
-        canAttack = false;
         animator2.SetTrigger("WingAttack");
 
-        yield return new WaitForSeconds(0.65f); // Wait for 1 second before instantiating the wing attack prefab
+        yield return new WaitForSeconds(0.65f);
 
-        Instantiate(wingAttackPrefab, firePoint.transform.position, Quaternion.identity);
-
-
-        float randomCount = Random.Range(0f, 5f);
-        yield return new WaitForSeconds(randomCount); // Wait for 4 seconds before allowing the next attack
-
-        canAttack = true;
+        Instantiate(
+            wingAttackPrefab,
+            firePoint.transform.position,
+            Quaternion.identity
+        );
     }
 
-    IEnumerator ShadowStrike()
+    // SHADOW STRIKE
+    private IEnumerator ShadowStrike()
     {
-        canAttack = false;
+        enemyMaterial.color = holyDark;
 
-        enemyRenderer.material.color = holyDark;
         yield return new WaitForSeconds(flashTime);
-        enemyRenderer.material.color = normalColor; 
+
+        enemyMaterial.color = normalColor;
 
         yield return new WaitForSeconds(1f);
 
-
-        RaycastHit hit;
-
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-
-        
         for (int i = 0; i < 7; i++)
         {
-             if (Physics.Raycast(player.position, Vector3.down, out hit, 100f, whatIsGround))
-             {
-                 Instantiate(_shadowStrikePrefab, hit.point + Vector3.up * 0.05f, Quaternion.identity);
-             }
+            if (player == null) yield break;
 
-             yield return new WaitForSeconds(0.25f); // Wait for 0.2 seconds before spawning the next Shadow Strike
-        }
+            Vector3 rayOrigin =
+                player.position + Vector3.up * 10f;
 
-        float randomCount = Random.Range(0f, 5f);
-        yield return new WaitForSeconds(randomCount); // Wait for 4 seconds before allowing the next attack
-
-        canAttack = true;
-    }
-
-    IEnumerator Teleport()
-    {
-        canAttack = false;
-
-        if (teleportPoints.Count > 1)
-        {
-            int randomIndex;
-
-            do
+            if (Physics.Raycast(
+                rayOrigin,
+                Vector3.down,
+                out RaycastHit hit,
+                100f,
+                whatIsGround))
             {
-                randomIndex = Random.Range(0, teleportPoints.Count);
+                Instantiate(
+                    _shadowStrikePrefab,
+                    hit.point + Vector3.up * 0.05f,
+                    Quaternion.identity
+                );
             }
-            while (randomIndex == lastTeleportIndex);
 
-            lastTeleportIndex = randomIndex;
-
-            parent.transform.position = teleportPoints[randomIndex].position;
+            yield return new WaitForSeconds(0.25f);
         }
-
-        float randomCount = Random.Range(0f, 5f);
-        yield return new WaitForSeconds(randomCount);
-
-        canAttack = true;
     }
 
+    // TELEPORT
+    private void Teleport()
+    {
+        if (teleportPoints == null ||
+            teleportPoints.Count == 0)
+            return;
 
+        int randomIndex;
+
+        do
+        {
+            randomIndex =
+                Random.Range(0, teleportPoints.Count);
+        }
+        while (
+            teleportPoints.Count > 1 &&
+            randomIndex == lastTeleportIndex
+        );
+
+        lastTeleportIndex = randomIndex;
+
+        parent.transform.position =
+            teleportPoints[randomIndex].position;
+    }
 }
-    

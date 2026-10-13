@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5519bc67fa257aa48b33fbe465eec2e0, type: 3}
   m_Name: RangedEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVariables
-  speed: 13
+  speed: 15
   hp: 0
-  maxHp: 12
+  maxHp: 13
   dmg: 0

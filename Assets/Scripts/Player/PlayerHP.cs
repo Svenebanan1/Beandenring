@@ -20,12 +20,21 @@ public class PlayerHP : MonoBehaviour
 
     [SerializeField] private Animator _animator;
 
+    public float canTakeDmg;
+
+    public GameObject UI;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         maxHP = _playerValues.maxhp;
         currentHP = _playerValues.hp;
         currentHP = maxHP;
+
+        canTakeDmg = 0.5f;
+
+        UI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -55,11 +64,17 @@ public class PlayerHP : MonoBehaviour
                 _timeBeforeRegen = 0.15f;
             }
         }
+
+        canTakeDmg -= Time.deltaTime;
     }
 
     public void TakeDamage(float dmg)
     {
-        currentHP -= dmg;
+        if (canTakeDmg <= 0)
+        {
+            currentHP -= dmg;
+            canTakeDmg = 0.5f;
+        }      
         _timeBeforeRegen = 4f;
         _canRegen = false;
 
@@ -71,7 +86,9 @@ public class PlayerHP : MonoBehaviour
 
     public IEnumerator Die()
     {
+        Time.timeScale = 0.5f;
         _animator.SetTrigger("Die");
+        UI.SetActive(true);
         yield return new WaitForSeconds(2f);
         
         SceneManager.LoadScene("MainMenu");

@@ -18,7 +18,6 @@ public class BossAttacks : MonoBehaviour
 
     [SerializeField] private Renderer enemyRenderer;
 
-    [SerializeField] private Color holyLight;
     [SerializeField] private Color holyDark;
     [SerializeField] private float flashTime = 0.1f;
 
@@ -29,6 +28,18 @@ public class BossAttacks : MonoBehaviour
     [SerializeField] private GameObject parent;
 
     private int lastTeleportIndex = -1;
+
+
+    [SerializeField] private GameObject wingAttackPrefab;
+
+    [SerializeField] private GameObject firePoint;
+
+    [SerializeField] private GameObject _redCircle;
+
+    [SerializeField] private float minSpawnRange = 2f;
+    [SerializeField] private float maxSpawnRange = 8f;
+    [SerializeField] private float groundOffset = 0.05f;
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,7 +53,7 @@ public class BossAttacks : MonoBehaviour
     {
         if(canAttack)
         {
-            randomAttack = (int)Random.Range(1, 11);
+            randomAttack = (int)Random.Range(1,11);
             Debug.Log("Random Attack: " + randomAttack);
 
             if (randomAttack >= 1 && randomAttack <= 3)
@@ -69,6 +80,8 @@ public class BossAttacks : MonoBehaviour
                 StartCoroutine(Teleport());
             }
         }
+
+
     
     }
 
@@ -76,16 +89,32 @@ public class BossAttacks : MonoBehaviour
     {
         canAttack = false;
 
-        enemyRenderer.material.color = holyLight;
-        yield return new WaitForSeconds(flashTime);
-        enemyRenderer.material.color = normalColor;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < 5; i++)
+        {
+            // Random position around the player
+            Vector2 randomDirection = Random.insideUnitCircle.normalized;
+            float randomDistance = Random.Range(minSpawnRange, maxSpawnRange);
 
-        //animator1.SetTrigger("HolyLight");
+            Vector3 spawnPosition = player.position + new Vector3(randomDirection.x * randomDistance, 0f, randomDirection.y * randomDistance);
 
-        float randomCount = Random.Range(2f, 5f);
-        yield return new WaitForSeconds(randomCount); // Wait for 4 seconds before allowing the next attack
+            // Start raycast above the intended spawn position
+            Vector3 rayOrigin = spawnPosition + Vector3.up * 10f;
+
+            if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 100f, whatIsGround))
+            {
+                // Spawn directly on the ground
+                Vector3 groundPosition = hit.point + Vector3.up * groundOffset;
+
+                Instantiate(_redCircle, groundPosition, Quaternion.identity);
+            }
+
+            yield return new WaitForSeconds(0.18f); // Wait for 0.2 seconds before spawning the next Shadow Strike
+        }
+      
+        float randomCount = Random.Range(0f, 5f);
+        yield return new WaitForSeconds(randomCount);
 
         canAttack = true;
     }
@@ -95,7 +124,12 @@ public class BossAttacks : MonoBehaviour
         canAttack = false;
         animator2.SetTrigger("WingAttack");
 
-        float randomCount = Random.Range(2f, 5f);
+        yield return new WaitForSeconds(0.65f); // Wait for 1 second before instantiating the wing attack prefab
+
+        Instantiate(wingAttackPrefab, firePoint.transform.position, Quaternion.identity);
+
+
+        float randomCount = Random.Range(0f, 5f);
         yield return new WaitForSeconds(randomCount); // Wait for 4 seconds before allowing the next attack
 
         canAttack = true;
@@ -117,7 +151,7 @@ public class BossAttacks : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
 
         
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 7; i++)
         {
              if (Physics.Raycast(player.position, Vector3.down, out hit, 100f, whatIsGround))
              {
@@ -127,7 +161,7 @@ public class BossAttacks : MonoBehaviour
              yield return new WaitForSeconds(0.25f); // Wait for 0.2 seconds before spawning the next Shadow Strike
         }
 
-        float randomCount = Random.Range(2f, 5f);
+        float randomCount = Random.Range(0f, 5f);
         yield return new WaitForSeconds(randomCount); // Wait for 4 seconds before allowing the next attack
 
         canAttack = true;
@@ -152,11 +186,12 @@ public class BossAttacks : MonoBehaviour
             parent.transform.position = teleportPoints[randomIndex].position;
         }
 
-        float randomCount = Random.Range(2f, 5f);
+        float randomCount = Random.Range(0f, 5f);
         yield return new WaitForSeconds(randomCount);
 
         canAttack = true;
     }
+
 
 }
     

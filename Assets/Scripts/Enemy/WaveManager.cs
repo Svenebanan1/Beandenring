@@ -18,7 +18,7 @@ public class WaveManager : MonoBehaviour
     private float gameTime = 0f;
 
     public TextMeshProUGUI killCount;
-    public float kills;
+    public int kills;
 
     [SerializeField] private float scaleFactor = 0.85f;
     [SerializeField] private float maxScaleTime = 45f;
@@ -64,6 +64,7 @@ public class WaveManager : MonoBehaviour
             SpawnEnemy();
             timer = 0f;
         }
+
         killCount.text = ": " + kills;
     }
 

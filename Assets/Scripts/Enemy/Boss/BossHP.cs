@@ -25,6 +25,8 @@ public class BossHP : MonoBehaviour
     [SerializeField] SphereCollider sc1;
     [SerializeField] SphereCollider sc2;
 
+    private int angelsKilled;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -33,6 +35,8 @@ public class BossHP : MonoBehaviour
         bossAttacks.enabled = false; // Disable attacks at the start
         sc1.enabled = false; // Disable collider at the start
         sc2.enabled = false; // Disable collider at the start
+
+        angelsKilled = PlayerPrefs.GetInt("Angels Killed",0);
 
     }
 
@@ -67,6 +71,9 @@ public class BossHP : MonoBehaviour
 
     private IEnumerator DieRoutine()
     {
+        angelsKilled++;
+        PlayerPrefs.SetInt("Angels Killed", angelsKilled);
+        PlayerPrefs.Save();
         yield return new WaitForSeconds(2f); // roughly your death animation length
         SceneManager.LoadScene("MainMenu");
     }

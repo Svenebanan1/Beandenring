@@ -27,12 +27,27 @@ public class EnemyHP : MonoBehaviour
     private Coroutine _flashRoutine;
     private bool _dead;
 
+    private int highestKills;
+    private int totalKills;
+
     private void Start()
     {
         waveManager = GameObject.Find("WaveManager").GetComponent<WaveManager>();
         hp = _enemyVariables.maxHp * waveManager.enemyHPMultiplier;
         bloodLifetime = 1f;
         normalColor = enemyRenderer.material.color;
+
+        highestKills = PlayerPrefs.GetInt("Highest Kills", 0);
+        totalKills = PlayerPrefs.GetInt("Total Kills", 0);
+    }
+
+    private void Update()
+    {
+
+        if(highestKills < waveManager.kills)
+        {
+            PlayerPrefs.SetInt("Highest Kills", waveManager.kills);
+        }
     }
 
     public void TakeDamage(float dmg)
@@ -53,6 +68,10 @@ public class EnemyHP : MonoBehaviour
             {
                 Instantiate(_xpShard, transform.position, Quaternion.identity);
             }
+
+            totalKills++;
+            PlayerPrefs.SetInt("Total Kills", totalKills);
+            PlayerPrefs.Save();
 
             waveManager.kills += 1;
             Destroy(gameObject);

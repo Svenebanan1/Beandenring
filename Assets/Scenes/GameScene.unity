@@ -1035,6 +1035,7 @@ MonoBehaviour:
   maximumEnemyCap: 50
   maxScaleTime: 30
   scaletime: 30
+  minScaleTime: 1
   scaleFactor: 0.85
   enemyHPMultiplier: 0
   enemyDMGMultiplier: 0
@@ -6909,9 +6910,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1882627400}
     - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 7287227397473598867}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: redrock
+      value: 
+      objectReference: {fileID: 7287227397473598865}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: bluerock
+      value: 
+      objectReference: {fileID: 7287227397473598864}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: playerlvl
+      value: 
+      objectReference: {fileID: 7287227397473598866}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: rangecheck
+      value: 
+      objectReference: {fileID: 267398530}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: shootSlash
+      value: 
+      objectReference: {fileID: 7287227397473598862}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: shootsword
+      value: 
+      objectReference: {fileID: 7287227397473598863}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
       propertyPath: healthImage
       value: 
       objectReference: {fileID: 329775666}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: rockmanager
+      value: 
+      objectReference: {fileID: 7287227397473598860}
+    - target: {fileID: 4939655352391056457, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+      propertyPath: lightningstrike
+      value: 
+      objectReference: {fileID: 7287227397473598861}
     - target: {fileID: 7120993055620128976, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
       propertyPath: runSpeed
       value: 16
@@ -6949,6 +6986,94 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+--- !u!114 &7287227397473598860 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 787664416724246810, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89031fee38465174394080ad8b850a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwitchRocks
+--- !u!114 &7287227397473598861 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1947799036879497107, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744782928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be60b112ee49d584eb5115d0fa103e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LightningStrike
+--- !u!114 &7287227397473598862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2527429396648943563, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351787115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85df1028f3a8af74fae6b0079c2df18a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootSlash
+--- !u!114 &7287227397473598863 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2640791502609301425, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388258714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362e542c15053614f9b1dd392a2d5561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootSword
+--- !u!114 &7287227397473598864 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9166779069596982564, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efbd94199bf71440bcf48ae90fcfc1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlueRock
+--- !u!114 &7287227397473598865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3321205070886719706, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b050f045b08b5f4d9e2a705ae30ba54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RedRock
+--- !u!114 &7287227397473598866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8562544109547945063, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031bec47a2c6af2478428018a04f2c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerLvL
+--- !u!114 &7287227397473598867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7120993055620128976, guid: ba6f66982dec15046a5c775e1437bb33, type: 3}
+  m_PrefabInstance: {fileID: 7287227397473598859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5f808bdcdc3c9e41bfb602c00c05c1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

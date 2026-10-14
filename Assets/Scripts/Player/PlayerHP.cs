@@ -24,6 +24,16 @@ public class PlayerHP : MonoBehaviour
 
     public GameObject UI;
 
+    [SerializeField] private Player player;
+    [SerializeField] private RangeCheck rangecheck;
+    [SerializeField] private ShootSword shootsword;
+    [SerializeField] private ShootSlash shootSlash;
+    [SerializeField] private LightningStrike lightningstrike;
+    [SerializeField] private BlueRock bluerock;
+    [SerializeField] private RedRock redrock;
+    [SerializeField] private PlayerLvL playerlvl;
+    [SerializeField] private SwitchRocks rockmanager;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -80,6 +90,16 @@ public class PlayerHP : MonoBehaviour
 
         if (currentHP <= 0)
         {
+            player.enabled = false;
+            playerlvl.enabled = false;
+            shootSlash.enabled = false;
+            shootsword.enabled = false;
+            lightningstrike.enabled = false;
+            bluerock.enabled = false;
+            redrock.enabled = false;
+            rangecheck.enabled = false;
+            rockmanager.enabled = false;
+
            StartCoroutine(Die());
         }
     }

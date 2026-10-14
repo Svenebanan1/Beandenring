@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using NUnit.Framework.Internal;
-using UnityEditor.Experimental.GraphView;
 
 public class PlayerLvL : MonoBehaviour
 {

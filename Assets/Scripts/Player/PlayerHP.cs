@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Runtime.Serialization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 public class PlayerHP : MonoBehaviour
 {

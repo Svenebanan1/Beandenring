@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 6305198461390169903}
     - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
       propertyPath: maxHealth
-      value: 1
+      value: 149000
       objectReference: {fileID: 0}
     - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
       propertyPath: deathSpawnPoint

@@ -15,7 +15,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float spawnradius = 15f;
 
     [SerializeField] private int startingEnemyCap = 15;
-    [SerializeField] private int maximumEnemyCap = 25;
+    [SerializeField] private int maximumEnemyCap = 80;
 
     private int currentEnemyCap;
 
@@ -30,6 +30,8 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] private float maxScaleTime = 40f;
     [SerializeField] private float scaletime;
+
+    [SerializeField] private float minScaleTime = 1f;
 
     [SerializeField, Range(0.1f, 1f)]
     private float scaleFactor = 0.85f;
@@ -53,7 +55,8 @@ public class WaveManager : MonoBehaviour
         enemyHPMultiplier = 1f;
         enemyDMGMultiplier = 1f;
 
-        maxScaleTime = Mathf.Max(1f, maxScaleTime);
+        minScaleTime = Mathf.Max(0.01f, minScaleTime);
+        maxScaleTime = Mathf.Max(minScaleTime, maxScaleTime);
         scaletime = maxScaleTime;
 
         spawninterval = Mathf.Max(minSpawnInterval, spawninterval);
@@ -73,14 +76,21 @@ public class WaveManager : MonoBehaviour
         timer += delta;
         scaletime -= delta;
 
-        // Remove references to destroyed enemies
         aliveEnemies.RemoveAll(enemy => enemy == null);
 
-        // Scale difficulty at fixed intervals
+        // Scale difficulty whenever timer reaches zero
         if (scaletime <= 0f)
         {
             ScaleEnemy();
-            scaletime += maxScaleTime;
+
+            // Reduce scaling interval by 10%
+            maxScaleTime = Mathf.Max(
+                minScaleTime,
+                maxScaleTime * 0.9f
+            );
+
+            // Reset timer using the new interval
+            scaletime = maxScaleTime;
         }
 
         // Spawn when timer expires OR arena is empty
@@ -138,7 +148,6 @@ public class WaveManager : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        // Never exceed the current enemy cap
         int remainingSlots = currentEnemyCap - aliveEnemies.Count;
 
         if (remainingSlots <= 0) return;
@@ -174,23 +183,25 @@ public class WaveManager : MonoBehaviour
 
     private void ScaleEnemy()
     {
-        // Increase enemy stats
-        enemyHPMultiplier *= 1.075f;
+        // Increase health by 0.02 each cycle
+        enemyHPMultiplier += 0.02f;
+
+        // Increase damage
         enemyDMGMultiplier *= 1.1f;
 
-        // Gradually increase enemies per spawn
+        // Increase enemies per spawn
         enemyAmount = Mathf.Min(
             enemyAmount + 1f,
             maxEnemiesPerSpawn
         );
 
-        // Gradually increase maximum alive enemies
+        // Increase alive enemy cap up to 80
         currentEnemyCap = Mathf.Min(
             currentEnemyCap + 1,
             maximumEnemyCap
         );
 
-        // Reduce spawn interval, never below 0.5 seconds
+        // Reduce spawn interval
         spawninterval = Mathf.Max(
             minSpawnInterval,
             spawninterval * scaleFactor

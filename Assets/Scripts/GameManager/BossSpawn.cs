@@ -38,8 +38,13 @@ public class BossSpawn : MonoBehaviour
     private float shakeTimer;
     private float defaultLensSize;
 
+    public GameObject winUI;
+
+    public bool bossIsDead;
+
     void Start()
     {
+        bossIsDead = false;
 
         time = 0f;
         if (virtualCamera == null)
@@ -67,6 +72,12 @@ public class BossSpawn : MonoBehaviour
         {
             bossSpawned = true;
             StartCoroutine(SpawnBoss());
+        }
+
+        if (bossIsDead)
+        {
+            StartCoroutine(WIN());
+            bossIsDead = false;
         }
 
         HandleShakeTimer();
@@ -102,6 +113,7 @@ public class BossSpawn : MonoBehaviour
         yield return null;
 
         Instantiate(bossPrefab, transform.position, Quaternion.identity);
+
     }
 
     public void TriggerEffects()
@@ -137,5 +149,12 @@ public class BossSpawn : MonoBehaviour
 
         // For 2D (Orthographic Size) - Uncomment below and comment out the FOV line if needed:
         // virtualCamera.Lens.OrthographicSize = Mathf.Lerp(virtualCamera.Lens.OrthographicSize, currentTargetSize, Time.deltaTime * lensChangeSpeed);
+    }
+
+    IEnumerator WIN()
+    {
+        yield return new WaitForSeconds(2f);
+
+        winUI.SetActive(true);
     }
 }

@@ -22,7 +22,8 @@ public class SpawnHolyLight : MonoBehaviour
 
     private IEnumerator SpawnRockCoroutine()
     {
-        yield return new WaitForSeconds(1f);
+        float randomWaitTime = Random.Range(0.35f, 1.5f);
+        yield return new WaitForSeconds(randomWaitTime);
 
         GameObject light = Instantiate(_light, transform.position + new Vector3(0, -0.4f, 0), Quaternion.identity);
 

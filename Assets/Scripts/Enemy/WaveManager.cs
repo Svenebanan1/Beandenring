@@ -20,7 +20,7 @@ public class WaveManager : MonoBehaviour
     private int currentEnemyCap;
 
     private const float minSpawnInterval = 0.5f;
-    private const int maxEnemiesPerSpawn = 20;
+    private const int maxEnemiesPerSpawn = 50;
 
     private readonly List<GameObject> aliveEnemies = new();
 
@@ -28,7 +28,7 @@ public class WaveManager : MonoBehaviour
     private float timer = 0f;
     private float gameTime = 0f;
 
-    [SerializeField] private float maxScaleTime = 45f;
+    [SerializeField] private float maxScaleTime = 40f;
     [SerializeField] private float scaletime;
 
     [SerializeField, Range(0.1f, 1f)]
@@ -175,7 +175,7 @@ public class WaveManager : MonoBehaviour
     private void ScaleEnemy()
     {
         // Increase enemy stats
-        enemyHPMultiplier *= 1.1f;
+        enemyHPMultiplier *= 1.075f;
         enemyDMGMultiplier *= 1.1f;
 
         // Gradually increase enemies per spawn

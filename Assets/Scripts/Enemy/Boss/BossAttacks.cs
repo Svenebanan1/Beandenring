@@ -169,7 +169,7 @@ public class BossAttacks : MonoBehaviour
                 );
             }
 
-            yield return new WaitForSeconds(0.18f);
+            yield return new WaitForSeconds(0.15f);
         }
     }
 

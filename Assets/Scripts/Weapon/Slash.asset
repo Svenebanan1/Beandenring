@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5d5511b17a60a45b242063d0c8ec33, type: 3}
   m_Name: Slash
   m_EditorClassIdentifier: Assembly-CSharp::WeaponManager
-  damage: 7
+  damage: 3.5
   projectileSpeed: 55
   fireRate: 0
   projectileAmount: 0

@@ -12,6 +12,9 @@ TagManager:
   - TankEnemy
   - EnemyArms
   - Boss
+  - Attack
+  - WaveManager
+  - GameManager
   layers:
   - Default
   - TransparentFX

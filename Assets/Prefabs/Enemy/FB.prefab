@@ -85,9 +85,21 @@ PrefabInstance:
       value: FinalBoss
       objectReference: {fileID: 0}
     - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: parent
+      value: 
+      objectReference: {fileID: 6305198461390169903}
+    - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
       propertyPath: maxHealth
-      value: 179851
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: deathSpawnPoint
+      value: 
+      objectReference: {fileID: 6122735640739427978, guid: e72652b81ab73c747b414661f11a2736, type: 3}
+    - target: {fileID: 6233809565338883735, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
+      propertyPath: deathSpawnPrefab
+      value: 
+      objectReference: {fileID: 7458856575363523479, guid: e72652b81ab73c747b414661f11a2736, type: 3}
     - target: {fileID: 9183358386408308768, guid: eca61e30580ed284f8ee2352d09b9076, type: 3}
       propertyPath: parent
       value: 

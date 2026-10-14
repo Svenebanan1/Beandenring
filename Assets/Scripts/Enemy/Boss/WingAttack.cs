@@ -27,7 +27,7 @@ public class WingAttack : MonoBehaviour
         Vector3 direction =
             (_player.position - transform.position).normalized;
 
-        rb.linearVelocity = direction * 15;
+        rb.linearVelocity = direction * 12;
     }
 
     private void OnTriggerStay(Collider other)

@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,7 +18,7 @@ public class BossHP : MonoBehaviour
     [SerializeField] private float flashTime = 0.08f;
 
     private Color normalColor;
-    private bool isDead;
+    public bool isDead;
 
     public BossAttacks bossAttacks;
 
@@ -26,6 +28,12 @@ public class BossHP : MonoBehaviour
     [SerializeField] SphereCollider sc2;
 
     private int angelsKilled;
+
+    public GameObject parent;
+
+    [SerializeField] private GameObject deathSpawnPrefab;
+    [SerializeField] private Transform deathSpawnPoint;
+
 
     void Start()
     {
@@ -37,6 +45,7 @@ public class BossHP : MonoBehaviour
         sc2.enabled = false; // Disable collider at the start
 
         angelsKilled = PlayerPrefs.GetInt("Angels Killed",0);
+
 
     }
 
@@ -51,6 +60,19 @@ public class BossHP : MonoBehaviour
             sc2.enabled = true; // Enable collider after the time has passed
         }
 
+        if (isDead)
+        {
+            bossAttacks.enabled = false; // Enable attacks after the time has passed
+            sc1.enabled = false; // Enable collider after the time has passed
+            sc2.enabled = false; // Enable collider after the time has passed
+            List<GameObject> attacks = new List<GameObject>(GameObject.FindGameObjectsWithTag("Attack"));
+
+            foreach (GameObject attack in attacks)
+            {
+                Destroy(attack);
+            }
+        }
+
         healthBarFill.fillAmount = currentHealth / maxHealth;
     }
 
@@ -63,6 +85,17 @@ public class BossHP : MonoBehaviour
 
         if (currentHealth <= 0f)
         {
+            GameObject gameManagerObj = GameObject.FindWithTag("GameManager");
+            if (gameManagerObj != null)
+            {
+                // Use TryGetComponent<object> to avoid allocation and type errors
+                Component gameManagerComponent;
+                if (gameManagerObj.TryGetComponent(typeof(Component), out gameManagerComponent))
+                {
+                    // Use SendMessage to set bossIsDead if the component has it
+                    gameManagerObj.SendMessage("SetBossIsDead", true, SendMessageOptions.DontRequireReceiver);
+                }
+            }
             isDead = true;
             animator.SetTrigger("Die");
             StartCoroutine(DieRoutine());
@@ -71,11 +104,28 @@ public class BossHP : MonoBehaviour
 
     private IEnumerator DieRoutine()
     {
+        List<GameObject> attacks = new List<GameObject>(
+            GameObject.FindGameObjectsWithTag("Attack"));
+
+        foreach (GameObject attack in attacks)
+        {
+            Destroy(attack);
+        }
+
         angelsKilled++;
         PlayerPrefs.SetInt("Angels Killed", angelsKilled);
         PlayerPrefs.Save();
-        yield return new WaitForSeconds(2f); // roughly your death animation length
-        SceneManager.LoadScene("MainMenu");
+
+        yield return new WaitForSeconds(2f);
+
+        // Spawn GameObject at the boss's death location
+        Instantiate(
+            deathSpawnPrefab,
+            deathSpawnPoint.position,
+            Quaternion.identity
+        );
+
+        Destroy(parent);
     }
 
     private IEnumerator HitFlash()
